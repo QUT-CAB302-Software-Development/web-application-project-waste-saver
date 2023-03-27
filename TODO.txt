@@ -1,0 +1,10 @@
+1. Create page displaying all prizes
+2. Show smart map of nearby donors
+3. Create text input for groceries 
+4. Create Scanner for barcodes and reciept for groceries
+5. Create login page conisting of username and password
+6. Create user profile page for configuring personal options 
+7. Create page displaying analytics of inputted groceries a user has
+8. Create leaderboard page consting of users sorted by points 
+9. Design the UI template
+10. Build template for disappearing notifications that appear on top of screen for alerts.
