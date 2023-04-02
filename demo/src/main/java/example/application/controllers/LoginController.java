@@ -34,7 +34,7 @@ public class LoginController {
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         // The user attribute is initialized to an empty user.
-        model.addAttribute("user", new User("","",""));
+        model.addAttribute("user", new User("","","", new double []{}));
         // When the user first visits the login page, they are not registering.
         model.addAttribute("isRegistering", false);
         return "login-view";

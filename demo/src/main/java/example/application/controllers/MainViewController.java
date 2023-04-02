@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Controller for the main page, displayed after the user has logged in.
@@ -41,4 +42,5 @@ public class MainViewController {
     public String logout() {
         return "redirect:/login";
     }
+
 }
