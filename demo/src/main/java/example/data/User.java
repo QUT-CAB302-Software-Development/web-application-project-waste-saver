@@ -7,6 +7,7 @@ public class User {
     private String name;
     private String password;
     private String email;
+    private double [] coordinates;
 
     /**
      * Creates a new User.
@@ -14,11 +15,13 @@ public class User {
      * @param name     The name of the user.
      * @param password The password of the user.
      * @param email    The email of the user.
+     * @param coordinates The coordinates of the user.
      */
-    public User(String name, String password, String email) {
+    public User(String name, String password, String email, double [] coordinates) {
         this.name = name;
         this.password = password;
         this.email = email;
+        this.coordinates = coordinates;
     }
 
     /**
@@ -73,5 +76,13 @@ public class User {
      */
     public void setEmail(String newEmail) {
         this.email = newEmail;
+    }
+
+    public double[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCords(double[] coordinates) {
+        this.coordinates = coordinates;
     }
 }

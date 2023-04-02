@@ -1,5 +1,9 @@
 1. Create page displaying all prizes
 2. Show smart map of nearby donors
+    -Add logic to checking if users are in boundry
+    -Add input to change radius
+    -Rework logic for chosen user
+    -Expand on what users are donating
 3. Create text input for groceries 
 4. Create Scanner for barcodes and reciept for groceries
 5. Create login page conisting of username and password
