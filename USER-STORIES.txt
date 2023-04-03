@@ -131,3 +131,27 @@ Vince:
 	
 	12. As an employer, I want to be able to diminish user's points who have been increasing in their food waste or broken their 'streak' for keeping waste low. This is so that the points are not just gained and users cannot exploited this.
 	
+Jason
+1.	As a user, I want to know when food I bought is about to reach due date, so I can plan out how I consume my food.
+
+Given a database to store information of the food brought, when the food is going to expire, the user will get a notification showing a list of food needs to be
+used and their remaining days before expiry, then they can consume the food or donate it before expiry.
+
+2.	As a user, I want to know my average consumption every week, so I can buy the right amount I need.
+
+Given a database that record the weekly consumption and waste, when the end of the week comes, data from this week, as well as previous weeks will be collected and
+averaged, then the user can understand their average food consumption weekly and plan how much they buy when they go shopping.
+
+3.	As a company, we want to know where we can potentially donate out our unsold food, so they don’t go to waste.
+
+Given a food request/donate function, when company search, they will get a list of potential individuals or organization who desire donation, then they can decide
+on who they will donate to according to location and communicate with the receiver.
+
+4.	As a user, I want to request a certain type of food, so I can receive food from other individuals or company to help reduce food waste.
+Given a food request/donate function, when user request a type of food, they will receive notification when someone is donating that same type of food, preferably
+within the same area as theirs, then they can pick up food and help reduce food waste.
+
+5.	As a company, we want to get rewarded for successfully reducing food waste, so we can get promotion and recognition from the platform.
+
+Given a ranking and point system, when company or individual donate food/reduced waste, they will gain points in the ranking system, then they can gain recognition
+if they are high up on the leaderboard.
