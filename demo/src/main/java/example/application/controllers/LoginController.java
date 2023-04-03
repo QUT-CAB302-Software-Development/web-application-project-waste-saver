@@ -1,18 +1,11 @@
 package example.application.controllers;
 
-import example.data.DBConnection;
-import example.data.StaticDatabaseConnection;
 import example.data.StaticUserDAO;
 import example.data.User;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controller for the login page.
@@ -37,7 +30,7 @@ public class LoginController {
         model.addAttribute("user", new User("","","", new double []{}));
         // When the user first visits the login page, they are not registering.
         model.addAttribute("isRegistering", false);
-        return "login-view";
+        return "login-page";
     }
 
     /**
@@ -66,7 +59,7 @@ public class LoginController {
         // If the user is not found or the password does not match, display an error
         model.addAttribute("error", "Invalid email or password");
         model.addAttribute("isRegistering", false);
-        return "login-view";
+        return "login-page";
     }
 
     /**
@@ -87,6 +80,6 @@ public class LoginController {
             model.addAttribute("isRegistering", true);
         }
         model.addAttribute("user", user);
-        return "login-view";
+        return "login-page";
     }
 }

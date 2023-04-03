@@ -5,7 +5,9 @@
     <title>Login</title>
 </head>
 <body>
-<h1>Test</h1>
+<div th:replace="~{index-page :: navbar}"></div> <! –– Navbar integration from previous use in index html -->
+
+<h1>Login</h1>
 <form method="post" th:action="@{/login}">
     <div>
         <label for="email">Email:</label>

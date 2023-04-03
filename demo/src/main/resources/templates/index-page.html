@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+
+<section id="bg-color">
+    <style>
+    #cover-img{
+        width: 100%;
+        height:350px;
+    }
+
+    #text_img
+    {
+        position: absolute;
+        top: 135px;
+        left: 16px;
+        font-family: "Arial Black";
+        color: white;
+    }
+    #text_img_color{
+        position: absolute;
+        top: 135px;
+        left:16%;
+        font-family: "Arial Black";
+        color: lawngreen;
+    }
+    #sub_text_img
+    {
+        position: absolute;
+        top: 210px;
+        left: 5px;
+        font-size: medium;
+        color: lightyellow;
+    }
+    #signup_index_button
+    {
+        position: absolute;
+        top: 300px;
+        left: 16px;
+        background-color: lawngreen;
+
+    }
+    #facts_number
+    {
+        font-family: "Arial Black";
+        color: lawngreen;
+        font-size: 80px;
+    }
+    #facts_number2
+    {
+        font-family: "Arial Black";
+        color: lawngreen;
+        font-size: 80px;
+    }
+    #facts_number3
+    {
+        font-family: "Arial Black";
+        color: lawngreen;
+        font-size: 80px;
+    }
+    #facts_number4
+    {
+        font-family: "Arial Black";
+        color: lawngreen;
+        font-size: 80px;
+    }
+    #fact-container
+    {
+        padding-top:73.5px;
+        padding-bottom:73.5px;
+    }
+    #more_about
+    {
+
+        background-color: black;
+        color: white;
+    }
+    #more-about-img
+    {
+        padding-top: 30px;
+        width: 266px;
+        height:256px;
+    }
+    #more-bout-heading
+    {
+        padding-top: 30px;
+        font-family: "Arial Black";
+    }
+    #find_out_more_button
+    {
+        margin-top: 10px ;
+        background-color: lawngreen;
+    }
+    #sponsors-img
+    {
+        width: 700px;
+        height:236px;
+    }
+    </style>
+
+
+
+        <head>
+            <title>Waste Saver</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        </head>
+
+        <body>
+        <div th:fragment="navbar">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Waste Saver</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Tab1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Tab2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Tab3</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <a class="nav-link" href="/login">Login</a>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+
+        </div>
+        </body>
+
+    <div>
+        <img src="../img/healthy-food-eating-groceries-1296x728-header-1.png" id="cover-img">
+        <h1 id="text_img">Reduce Your</h1>
+        <h1 id="text_img_color">Food Waste</h1>
+            <div class="container" id="sub_text_img">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod <br>
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis <br>
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <a type="button" class="btn btn-success" id="signup_index_button" href="/login">Sign Up Now</a>
+
+        <div class="container" id="fact-container">
+            <div class="row gx-24">
+                <div class="col-sm-3">
+                    <p id="facts_number">30%</p>
+                    <p>Food waste is made up of household waste</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <p id="facts_number2">10K</p>
+                    <p>User actively using our website to reduce food waste</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <p id="facts_number3">1 Ton</p>
+                    <p>Food waste has been reduced by us</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <p id="facts_number4">2%</p>
+                    <p>of landfill goods has been reduced</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="more_about">
+            <div class="container">
+                <div class="row gx-4">
+                    <div class="col-lg-4">
+                        <h3 id="more-bout-heading">More about us at Waste Saver</h3>
+                        <div>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam.
+                            Elementum dolor at pharetra sodales duis nisi eros mollis sodales.
+                            enim aliquam, viverra sodales mi. Suspendisse urna nisi, rutrum at velit.
+                        </div>
+                        <a type="button" class="btn btn-success" id="find_out_more_button" href="#">Find Out More</a>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <img src="../img/istockphoto-1218623873-170667a.jpg" id="more-about-img">
+                    </div>
+                    <div class="col-lg-4">
+                        <h3 id="more-bout-heading">Our Sponsors</h3>
+                        <img src="../img/Sponsors.png" id="sponsors-img">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</section>
+</html>
+
