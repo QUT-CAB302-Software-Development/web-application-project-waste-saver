@@ -103,3 +103,31 @@ Adam (tu):
     a.	Given a working switch button in my profile page, when I toggle it on and then view the map, the map will also display third-party food donating related locations.
 15.	As a user, I want to be able to share a location of a user receiving or donating food on the map so that I can give another details to another person who doesn’t   use the app.
     a.	Given an expanded user marker on the map and a button to copy and paste address, when I click the button, then it will copy the details of the user including   person, food and address to my clip board. 
+
+
+Vince:
+	1. As a user, I want to see my displayed food with the inputted information so that I will be able to see when the food is expired or not.
+		
+	2. As a user, I want to be reminded when my food is about to expire so that I will be able to make several adjustments to the food.
+	
+	3. As a user, I want to be able to see a reminder after my food is expired so that I will have the help provided if I didn't know what to do. 
+	
+	4. As a user, I want to be able to see a refined shopping list based on the most and least food usages so that I can compare which food I've eaten more or less. 
+
+	5. As a user, I should be able to compare each food so that I will be able to check each of the contents. 
+	
+	6. As a user, I want to be able to see a list of food waste for each food that I've inputted so that I will make adjustments to the food that I currently consume. 
+	
+	7. As a user, I want to be able to see a weekly update about my inputted food so that I am not looking at outdated information about my food.
+	
+	8. As a user, I want to be able to see how much I've eaten for each food that I've inputted, so I will be able to compare the consumption rate
+	
+	9. As a user, I want to be able to look at the points from each food that I've inputted. So I would be able to look out the number of points I've accumulated for each food that I've added.
+	
+	10. As an employer, I want to be able to track each food's consumption, so I can allocate points to users who have wasted food less.
+	
+	11. As an employer, I want to be able to give extra points to users who have been wasting less food over a period of weeks so that it encourages users to keep food waste at an all-time low. 
+	
+	
+	12. As an employer, I want to be able to diminish user's points who have been increasing in their food waste or broken their 'streak' for keeping waste low. This is so that the points are not just gained and users cannot exploited this.
+	
