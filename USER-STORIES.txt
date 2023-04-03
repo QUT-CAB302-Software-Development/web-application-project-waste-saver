@@ -155,3 +155,64 @@ within the same area as theirs, then they can pick up food and help reduce food 
 
 Given a ranking and point system, when company or individual donate food/reduced waste, they will gain points in the ranking system, then they can gain recognition
 if they are high up on the leaderboard.
+
+Viet Anh Tran 
+As a Customer I want… To be able to register my account So that… My details are recorded, and I can login to my account 
+
+Acceptance Criteria: 
+
+Given… a register page  
+
+When…I enter my details 
+
+Then… I should be able to create a my account with my name email and password 
+
+ 
+
+As a Customer I want… To be able to login to my registered account So that… I can access all the feature that the web provide  
+
+Acceptance Criteria 
+
+Given... a login page 
+
+When... I enter mt login details 
+
+Then... I should be able to login to my account  
+
+ 
+
+As a Customer I want… To be able to logout So that… So I can change my details if something was inputted wrong or my details has change  
+
+Acceptance Criteria 
+
+Given... a user page has been setup with an option to edit your details 
+
+When... I press edit button  
+
+Then.. I should be able to change my details  
+
+ 
+
+ 
+As a Customer I want… To be able to change my details So that… So I can logout of my account  
+
+Acceptance Criteria 
+
+Given .. a profile page has been setup  
+
+When... I press logout  
+
+Then.. I should be log out  
+
+ 
+
+ 
+As a Customer I want… To be able to delete my account So that… If I don’t want to continue using the web I can delete my account  
+
+ Acceptance Criteria 
+
+Given... a profile page and an authentication has been setup  
+
+When... I press delete account 
+
+Then.. I should be able to delete all my credential from the system  
