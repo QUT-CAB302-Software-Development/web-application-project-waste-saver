@@ -1,17 +1,66 @@
 Jayden:
-    - As a user, I want to register with my name, email, and a password, so I can safely access a new account
-    - As a user, I want to have a confirmation email sent to me, to make sure no one else registers my email address
-    - As a user, I want to login with my email and password, so I can start donating and collecting food
-    - As a user, I want to log out of my account, so my information is kept secure
-    - As a user, I want to be able to reset my password, in case I forget it, or it needs to be updated
-    - As a user, I want to view and update my personal information, so I can keep my account up to date
-    - As a user, I want to view and update my preferences, so the application works the way I want it to
-    - As a user, I want to upload a profile photo, so myself and others can visually identify my profile
-    - As a user, I want to be able to delete my account, so my information is removed if I no longer want to use the application
-    - As a user, I want to view my past donations and points, so I can see my contributions to my local community
-    - As a user, I want to view reviews of my past donations, so I can see what others think of my donations
-    - As a user, I want to earn perks and visual rewards, so I can be incentivised to donate more
-    - As a user, I want to contact other users through the app, so I can organise donations
+    1. As a user, I want to register with my name, email, and a password, so I can safely access a new account
+        - Given a valid email address, when I enter my name, email, and password, and click 'register', I
+        receive visual confirmation that a registration attempt has been lodged
+
+    2. As a user, I want to have a verification email sent to me, to make sure no one else registers my email
+    address
+        - Given a registration attempt and a prompt for a code, when I enter the code emailed to me, I see
+        visual feedback showing I am verified
+
+    3. As a user, I want to login with my email and password, so I can start donating and collecting food
+        - Given a registered email, when I enter my details and click 'login', I am logged into the application
+        and my personal details are shown
+
+    4. As a user, I want to log out of my account, so my information is kept secure
+        - Given a logged in account, when I click 'log out', I am returned to the login screen and my details
+        are no longer displayed
+
+    5. As a user, I want to be able to reset my password, in case I forget it, or it needs to be updated
+        -
+
+    6. As a user, I want to view and update my personal information, so I can keep my account up to date
+        - Given a screen displaying my personal information, when I click edit and update my information,
+        I can return to the screen and see my updated information
+
+    7. As a user, I want to view and update my preferences, so the application works the way I want it to
+        - Given a screen displaying my preferences, when I click edit and update my information, I can return
+        to the screen and see my updated information
+
+    8. As a user, I want to upload a profile photo, so myself and others can visually identify my profile
+        - Given a
+
+    9. As a user, I want to be able to delete my account, so my information is removed if I no longer want to
+    use the application
+        - Given a logged-in user, when I click 'Delete my account', I am no longer able to log in using my
+        previous account details
+
+    10. As a user, I want to view my past donations and points, so I can see my contributions to my local
+    community
+        - Given a logged-in user, when I open the 'history' page, I can accurately see my previous donations
+        and current point score
+
+    11. As a user, I want to view reviews of my past donations, so I can see what others think of my donations
+        - Given a logged-in user, when I open the 'history' page, I can see reviews for each of my previous
+        donations, and any comments that have been made
+
+    12. As a user, I want to earn perks and visual rewards, so I can be incentivised to donate more
+        - Given a logged-in user, when I reach a certain threshold of points, I see a star appear next to my
+        profile, representing a high point score
+
+    13. As a user, I want to be able to reset my preferences to the default, so I can undo everything if I
+    make a mistake
+        - Given a logged-in user on the preferences page, when I click 'reset to default', all my preferences
+        change to what they were when I first registered
+
+    14. As a user, I want to be able to see a leaderboard of the users with the highest points in my local area
+        - Given a logged-in user, when I click on the 'leaderboard' page, I see a list of users and their
+        points, and I see my position on the leaderboard
+
+    15. As a receiver, I want to be able to review a donator's profile, so I can trust that they will give me
+    a good donation
+        - Given a donation attempt, when I click on the donator's name, I can see their history of donations
+        and reviews for each
 
 
 Adam (tu):
