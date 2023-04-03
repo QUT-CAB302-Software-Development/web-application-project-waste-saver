@@ -43,4 +43,8 @@ public class MainViewController {
         return "redirect:/login";
     }
 
+    @PostMapping("/viewmap")
+    public String viewmap() {
+        return "redirect:/viewmap";
+    }
 }
