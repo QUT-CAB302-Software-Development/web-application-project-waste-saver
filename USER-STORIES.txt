@@ -12,3 +12,45 @@ Jayden:
     - As a user, I want to view reviews of my past donations, so I can see what others think of my donations
     - As a user, I want to earn perks and visual rewards, so I can be incentivised to donate more
     - As a user, I want to contact other users through the app, so I can organise donations
+
+
+Adam (tu):
+1.	As a receiver, I want to be able to see a map so I can see nearby donors of food.
+    a.	 Given there is a valid user database and I click on the map page, then a map of food donors is displayed.
+
+2.	As a receiver, I want to be able to configure a max radius of nearby food donors and receivers so that I can see only relevant users nearby me.
+    a.	Given there is a input-box in the map and profile settings, when I enter a valid positive integer, the map is then updated to show only users within that           radius in meters squared of me.
+
+3.	As a receiver, I want to be able to filter or set preference of food so that I can only see food that matches what I want.
+    a.	Given a valid list of food categories in the either map page or profile settings, when I select the foods as preference, the map will then only display donors      with donations matching my preferences.
+
+4.	As a donor, I want to be able to notify receivers that I am donating food so that I can give away food I won’t eat.
+    a.	Given a valid list of food / groceries in my foods page, when I click donate button on a food item, the map will then update to show my donation and its            location.
+
+5.	As a donor, I want to be able to remove my donation advertisement so that I can let others know It’s not available anymore.
+    a.	Given a valid list of foods being advertised, when I click to remove advertisement on a food item, the map will then update to not show my donation.
+
+6.	As a business, I want to be able to show my business location so that I can let others know my business is a regular food donor.
+    a.	Given an input box in my business specific settings, when I enter a location, the map will then update to show my business location.
+
+7.	As a receiver, I want my map to be automatically updated so that I am always looking at accurate information
+    a.	Given a valid update to a user(s), when an update is made to a user(s), then the map will automatically reflect that update without touching anything.
+
+8.	As a user, I want to be able to select a location, so that I can see if there are any receivers or donors in that vicinity.
+    a.	Given the location input box in the map page, when I enter a specific location to view in the map settings, then the map’s center will shift to that location.
+
+9.	As a business, I want to be able to show other users I am hosting a special event so that users will show up to my event.
+    a.	Given the business options in my settings has an add event button, when I click it and add valid options, then the map will show the location has my event.
+
+10.	As a user, I want to be able to click on other users on the map so that I can view other things they might want to give or receive.
+    a.	Given I’m on the map and there are user markers, when I click on the marker, it will expand the marker to show a more detailed summary of the user.
+11.	As a user, I want to be able to click on a user to go to their public profile so I can find out more about other users.
+    a.	Given I’m on the map and there are user markers that have been expanded and have a button, when I click on the button, it will send me to their profile.
+12.	As a receiver, I want to be able to color code nearby donors based on the nearing expiry date of their food so that I don’t have to manually click users to check.
+    a.	Given a button in the map settings or profile to toggle color coding, when I enable the button and go to the map, then it will color code users based on their      expiry dates.
+13.	As a receiver, I want to be able to select the maximum number of users to display within radius so that I can see the closest possible donors.  
+    a.	Given an input in the map settings, when I enter a valid positive number, then map will show the closets users up to the maximum number I entered.
+14.	As a user, I want to be able to view other miscellaneous companies like homeless shelters so that I can see other alternatives for donating food.
+    a.	Given a working switch button in my profile page, when I toggle it on and then view the map, the map will also display third-party food donating related locations.
+15.	As a user, I want to be able to share a location of a user receiving or donating food on the map so that I can give another details to another person who doesn’t   use the app.
+    a.	Given an expanded user marker on the map and a button to copy and paste address, when I click the button, then it will copy the details of the user including   person, food and address to my clip board. 
