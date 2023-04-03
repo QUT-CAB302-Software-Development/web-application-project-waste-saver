@@ -1,0 +1,14 @@
+Jayden:
+    - As a user, I want to register with my name, email, and a password, so I can safely access a new account
+    - As a user, I want to have a confirmation email sent to me, to make sure no one else registers my email address
+    - As a user, I want to login with my email and password, so I can start donating and collecting food
+    - As a user, I want to log out of my account, so my information is kept secure
+    - As a user, I want to be able to reset my password, in case I forget it, or it needs to be updated
+    - As a user, I want to view and update my personal information, so I can keep my account up to date
+    - As a user, I want to view and update my preferences, so the application works the way I want it to
+    - As a user, I want to upload a profile photo, so myself and others can visually identify my profile
+    - As a user, I want to be able to delete my account, so my information is removed if I no longer want to use the application
+    - As a user, I want to view my past donations and points, so I can see my contributions to my local community
+    - As a user, I want to view reviews of my past donations, so I can see what others think of my donations
+    - As a user, I want to earn perks and visual rewards, so I can be incentivised to donate more
+    - As a user, I want to contact other users through the app, so I can organise donations

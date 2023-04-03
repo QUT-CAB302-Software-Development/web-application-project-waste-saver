@@ -8,6 +8,7 @@ public class User {
     private String password;
     private String email;
     private double [] coordinates;
+    private UserPref preferences;
 
     /**
      * Creates a new User.
@@ -22,6 +23,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.coordinates = coordinates;
+        this.preferences = new UserPref();
     }
 
     /**
@@ -52,6 +54,15 @@ public class User {
     }
 
     /**
+     * Gets the user's UserPref preferences object
+     *
+     * @return A UserPref object of the user's preferences
+     */
+    public UserPref getPreferences() {
+        return this.preferences;
+    }
+
+    /**
      * Sets the name of the user.
      *
      * @param newName The new name of the user.
@@ -78,6 +89,12 @@ public class User {
         this.email = newEmail;
     }
 
+
+    public boolean setPreferences(UserPref newPreferences) {
+        this.preferences = newPreferences;
+        return true;
+    }
+
     public double[] getCoordinates() {
         return coordinates;
     }
@@ -85,4 +102,5 @@ public class User {
     public void setCords(double[] coordinates) {
         this.coordinates = coordinates;
     }
+
 }

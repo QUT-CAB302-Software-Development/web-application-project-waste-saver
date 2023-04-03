@@ -1,14 +1,24 @@
 1. Create page displaying all prizes
 2. Show smart map of nearby donors
-    -Add logic to checking if users are in boundry
+    -Add logic to checking if users are in boundary
     -Add input to change radius
     -Rework logic for chosen user
     -Expand on what users are donating
 3. Create text input for groceries 
-4. Create Scanner for barcodes and reciept for groceries
-5. Create login page conisting of username and password
-6. Create user profile page for configuring personal options 
+4. Create Scanner for barcodes and receipt for groceries
+
+(Jayden):
+5. Create login page consisting of username and password
+    - Create login page HTML template
+    - Implement login page logic
+6. Create user profile page for configuring personal options
+    - Create user class and other associated classes
+        - Catch bad user inputs in setter methods
+    - Replace static database with JDBC database connection
+    - Create profile page HTML template
+    - Implement profile page logic
+
 7. Create page displaying analytics of inputted groceries a user has
-8. Create leaderboard page consting of users sorted by points 
+8. Create leaderboard page consisting of users sorted by points
 9. Design the UI template
 10. Build template for disappearing notifications that appear on top of screen for alerts.
