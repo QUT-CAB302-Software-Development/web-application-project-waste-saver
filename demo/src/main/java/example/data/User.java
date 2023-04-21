@@ -5,6 +5,9 @@ package example.data;
  */
 public class User {
     private String name;
+
+    private String firstName;
+    private String lastName;
     private String password;
     private String email;
     private double [] coordinates;
@@ -34,7 +37,22 @@ public class User {
     public String getName() {
         return name;
     }
-
+    /**
+     * Gets the first name of the user.
+     *
+     * @return The first name of the user.
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+    /**
+     * Gets the last name of the user.
+     *
+     * @return The last name of the user.
+     */
+    public String getLastName() {
+        return lastName;
+    }
     /**
      * Gets the password of the user.
      *
@@ -69,6 +87,24 @@ public class User {
      */
     public void setName(String newName) {
         this.name = newName;
+    }
+
+    /**
+     * Sets the name of the user.
+     *
+     * @param newName The new name of the user.
+     */
+    public void setFirstName(String newName) {
+        this.firstName = newName;
+    }
+
+    /**
+     * Sets the name of the user.
+     *
+     * @param newName The new name of the user.
+     */
+    public void setLastName(String newName) {
+        this.lastName = newName;
     }
 
     /**

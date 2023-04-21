@@ -46,7 +46,7 @@ public interface UserDAO {
 
     /**
      * Finalizes any resources used by the data source and ensures data is
-     * persisited.
+     * persisted.
      */
     void close();
 }
