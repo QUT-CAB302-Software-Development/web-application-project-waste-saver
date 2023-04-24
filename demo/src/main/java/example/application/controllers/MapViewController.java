@@ -22,6 +22,17 @@ public class MapViewController {
      * The singleton instance of the database connection. This is used to access the
      * database of users.
      */
+
+    public class FoodItem {
+        public String name;
+        public int expirationDate;
+
+        public FoodItem(String name, int expirationDate) {
+            this.name = name;
+            this.expirationDate = expirationDate;
+        }
+
+    }
     private final StaticUserDAO userDAO = new StaticUserDAO();
     public String dummyRadius = "80";
 
@@ -66,6 +77,12 @@ public class MapViewController {
         dummyUsers.add(new User("Jayden", "321", "jayden@gmail.com", new double[]{-27.4783, 153.0290}));
         dummyUsers.add(new User("Jason", "213", "jason@gmail.com", new double[]{-27.4788, 153.0279}));
 
+        List<FoodItem> dummyFoodItems = new ArrayList<>();
+        dummyFoodItems.add(new FoodItem("Tomahawk Steak", 10052));
+        dummyFoodItems.add(new FoodItem("Halal Khebabs", 4922));
+        dummyFoodItems.add(new FoodItem("Chicken and Rice", 40));
+
+
         for (User user : dummyUsers) {
             if (!(withinDistance(dummyUsers.get(0).getCoordinates(), user.getCoordinates()))) {
                 dummyUsers.remove(user);
@@ -77,6 +94,7 @@ public class MapViewController {
         model.addAttribute("chosenuser", dummyUsers.get(0));
         model.addAttribute("users", userDAO.listUsers());
         model.addAttribute("radius", radius);
+        model.addAttribute("dummyfood", dummyFoodItems);
 
         dummyRadius = radius;
         // Add a marker for each user to the map
