@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class UserStatsTests {
 
     private User loggedIn = new User("Jayden", "Hobbs", "Pass1", "jayden@qut", new double[]{});
-    loggedIn.
     private final StaticUserDAO userDAO = new StaticUserDAO();
 
 
@@ -22,7 +21,6 @@ class UserStatsTests {
     public void testConstructor(){
         assertEquals(loggedIn.getStatistics().getPoints(), 0);
         assertEquals(loggedIn.getStatistics().getDonationsTotal(), 0);
-        assertEquals(loggedIn.getStatistics().getJoinDate().getMonth(), );
 
     }
 

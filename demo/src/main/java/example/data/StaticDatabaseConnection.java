@@ -20,9 +20,6 @@ public class StaticDatabaseConnection {
 
         users = new ArrayList<>();
 
-        User u = new User("Jayden", "Hobbs", "password", "jayden@gmail", new double []{-27.4785, 153.0284});
-        u.set
-        users.add(u);
     }
 
     /**
