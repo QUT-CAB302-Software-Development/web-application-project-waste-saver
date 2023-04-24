@@ -17,7 +17,9 @@ public class StaticDatabaseConnection {
      * Constructor initializes the static "tables".
      */
     public StaticDatabaseConnection() {
+
         users = new ArrayList<>();
+
     }
 
     /**

@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DemoApplication {
 	@GetMapping("/")
-	public String Index() {return "index-page";}
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+	public String Index() {
+		return "index-page";
 	}
+	public static void main(String[] args) { SpringApplication.run(DemoApplication.class, args); }
+
 
 }
