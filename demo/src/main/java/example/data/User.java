@@ -5,24 +5,26 @@ package example.data;
  */
 public class User {
     private String name;
-
     private String firstName;
     private String lastName;
     private String password;
     private String email;
     private double [] coordinates;
     private UserPref preferences;
+    private UserStats statistics;
 
     /**
      * Creates a new User.
      *
-     * @param name     The name of the user.
+     * @param fname     The first name of the user.
+     * @param lname     The last name of the user.
      * @param password The password of the user.
      * @param email    The email of the user.
      * @param coordinates The coordinates of the user.
      */
-    public User(String name, String password, String email, double [] coordinates) {
-        this.name = name;
+    public User(String fname, String lname, String password, String email, double [] coordinates) {
+        this.firstName = fname;
+        this.lastName = lname;
         this.password = password;
         this.email = email;
         this.coordinates = coordinates;
@@ -78,6 +80,15 @@ public class User {
      */
     public UserPref getPreferences() {
         return this.preferences;
+    }
+
+    /**
+     * Gets the user's UserStats statistics object
+     *
+     * @return A UserStats object of the user's statistics
+     */
+    public UserStats getStatistics() {
+        return this.statistics;
     }
 
     /**

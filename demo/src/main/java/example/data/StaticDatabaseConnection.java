@@ -17,7 +17,12 @@ public class StaticDatabaseConnection {
      * Constructor initializes the static "tables".
      */
     public StaticDatabaseConnection() {
+
         users = new ArrayList<>();
+
+        User u = new User("Jayden", "Hobbs", "password", "jayden@gmail", new double []{-27.4785, 153.0284});
+        u.set
+        users.add(u);
     }
 
     /**

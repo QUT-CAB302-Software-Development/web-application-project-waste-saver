@@ -34,9 +34,9 @@ public class MapViewController {
          *  Creates a list of example Users with coordinates, in the real implementation, should fetch from the database.
          */
         List<User> dummyUsers = new ArrayList<>();
-        dummyUsers.add(new User("Adam", "123", "adam@gmail.com", new double []{-27.4785, 153.0284}));
-        dummyUsers.add(new User("Jayden", "321", "jayden@gmail.com", new double []{-27.4783, 153.0290}));
-        dummyUsers.add(new User("Jason", "213", "jason@gmail.com", new double []{-27.4788, 153.0279}));
+        dummyUsers.add(new User("Adam", "Le", "123", "adam@gmail.com", new double []{-27.4785, 153.0284}));
+        dummyUsers.add(new User("Jayden", "Hobbs", "321", "jayden@gmail.com", new double []{-27.4783, 153.0290}));
+        dummyUsers.add(new User("Jason", "Siu", "213", "jason@gmail.com", new double []{-27.4788, 153.0279}));
 
         // add attributes to the model
         model.addAttribute("mapusers", dummyUsers);

@@ -40,9 +40,7 @@ public class ProfileController {
     public String showProfileForm(Model model) {
         System.out.println(firstTime);
         if (firstTime){
-            User u = new User("Jayden H", "password", "jayden@gmail", new double []{-27.4785, 153.0284});
-            u.setFirstName("Jayden");
-            u.setLastName("Hobbs");
+            User u = new User("Jayden", "Hobbs", "password", "jayden@gmail", new double []{-27.4785, 153.0284});
             userDAO.addUser(u);
             firstTime=false;
         }
