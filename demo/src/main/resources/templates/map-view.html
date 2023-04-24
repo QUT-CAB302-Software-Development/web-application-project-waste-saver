@@ -1,34 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-            crossorigin=""></script>
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-          crossorigin=""/>
-
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <style>
-        #map { height: 600px; width: 1000px;}
+        #map {
+            height: 70vh;
+            width: 65%;
+            border-color: black;
+            border-radius: 5%;
+            left:25%;
+            margin-top: 2.5%;
+
+            box-shadow: 10px 10px 5px grey;
+        }
+
+        body {
+            background-color: white;
+            background-image: url(../img/MapBG.png);
+            background-size: cover;
+        }
+
+        .good {
+            color: green; /* Set text color to white */
+        }
+
+        .ok {
+            color: yellow; /* Set text color to white */
+        }
+
+        .bad {
+            color: red; /* Set text color to white */
+        }
+
+              /* Set the height and width of the side menu */
+      .sidebar {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        top: 7%;
+        left: 0;
+        background-color: #f1f1f1;
+        opacity: 60%;
+        overflow-x: hidden;
+        padding-top: 20px;
+      }
+
+      /* Style the links in the menu */
+      .sidebar {
+        text-decoration: none;
+        padding-top: 1%;
+        padding-left: 0.2%;
+        color: black;
+        display: block;
+      }
+
+      /* Change the link color on hover */
+      .sidebar a:hover {
+        color: #f1f1f1;
+      }
+
     </style>
-    <title>Title</title>
+
+
+    <title>Map</title>
 
 </head>
-<body>
 
+<div th:replace="~{index-page :: navbar}" />
+
+<body>
 <div id="map"></div>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    map = L.map('map').setView([-27.4785, 153.0284], 20);
-
+    var map = L.map('map').setView([-27.4785, 153.0284], 20);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    var mapusers = [[${mapusers}]];
+    var mapusers = [[${ mapusers }]];
     var chosenuser = /*[[${chosenuser}]]*/;
+    var dummyfood = [[${ dummyfood }]];
+
     var boundry = L.circle(chosenuser.coordinates, {
         color: '',
         fillColor: 'blue',
@@ -36,14 +96,99 @@
         radius: 80
     }).addTo(map);
 
+    var markerGroup = L.layerGroup(); // Create a layer group for markers
+
+    var markers = [];
+
     for (var i = 0; i < mapusers.length; i++) {
         var user = mapusers[i];
-        L.marker(user.coordinates).addTo(map)
-            .bindPopup("<b>" + user.name +  "</b><b>" + " is donating: ....");
+        var food = dummyfood[i];
+        var expiration = food.expirationDate; // Save the original expiration date
+        var timeunit = expiration / 10080 > 1 ? "Weeks" : expiration / 1440 > 1 ? "Days" : expiration / 60 > 1 ? "Hours" : "Minutes";
+        var unit = expiration / 10080 > 1 ? expiration / 10080 : expiration / 1440 > 1 ? expiration / 1440
+         : expiration / 60 > 1 ? expiration / 60 : expiration;
+        var classcolor = timeunit == 'Weeks' ? "good" : timeunit == 'Days' ? "good" : timeunit == "Hours" ? 'okay' :
+            timeunit == "Minutes" ? 'bad' : 'bad';
+
+        var marker = L.marker(user.coordinates) // Create a marker
+            .bindPopup("<b>" + user.name + "</b><b>" + " is donating: " + "</b><br>" + food.name
+                + "<br> Expiring in " + Math.floor(unit) + "</b> " + timeunit + "<br><br>"
+        + "<form method='post' action='/profile'><button type='submit' class='btn btn-success'>View Profile</button></form>", {
+            class: classcolor }) // Bind popup to marker
+        markers.push(marker);
+    }
+
+    // Decrement the expiration value and update the marker popup content every second
+    setInterval(function() {
+        for (var i = 0; i < markers.length; i++) {
+            var marker = markers[i];
+            var popupContent = marker.getPopup().getContent();
+            var expiration = parseInt(popupContent.match(/Expiring in (\d+)/)[1]);
+            var timeunit = popupContent.match(/\b(?:Weeks|Days|Hours|Minutes)\b/)[0];
+            if(timeunit == "Minutes") {
+                if (expiration > 0) {
+                    var newExpiration = expiration - 1;
+                    var newPopupContent = popupContent.replace(/Expiring in (\d+)/, "Expiring in " + newExpiration);
+                    marker.getPopup().setContent(newPopupContent);
+                }
+            }
+            else {
+                var newPopupContent = popupContent.replace(/Expiring in (\d+)/, "Expiring in " + newExpiration);
+            }
+        }
+    }, 1000);
+
+    filterMarkers(); // Initial filter of markers based on boundary
+
+    function updateBoundary() {
+        if(document.getElementById("radiusInput") != null) {
+            var radius = document.getElementById("radiusInput").value;
+        }
+        else { var radius = 80; }
+        boundry.setRadius(radius);
+        filterMarkers();
+    }
+
+    function filterMarkers() {
+        var radius = boundry.getRadius();
+        var center = boundry.getLatLng();
+        if(document.getElementById("maximumPeopleInput") != null) {
+            var max = document.getElementById("maximumPeopleInput").value }
+            else {
+                var max = 100; }
+        markerGroup.clearLayers(); // Clear existing markers from layer group
+        for (var i = 0; i < markers.length; i++) {
+            if(i == max) { break; }
+            var marker = markers[i];
+            var distance = marker.getLatLng().distanceTo(center);
+            if (distance <= radius) {
+                markerGroup.addLayer(marker); // Add marker to layer group
+            }
+        }
+
+        markerGroup.addTo(map); // Add filtered layer group to map
     }
 
     /*]]>*/
+
 </script>
+
+
+<div class="sidebar">
+    <form onsubmit="return false;">
+        <label for="radiusInput">Radius: </label>
+        <input id="radiusInput" type="number" onchange="updateBoundary()" value="${radius}">
+    </form>
+    <form onsubmit="return false;">
+        <label for="maximumPeopleInput">Maximum people: </label>
+        <input id="maximumPeopleInput" type="number" onchange="updateBoundary()" value="${maximumPeople}">
+    </form>
+    <form onsubmit="return false;">
+        <label for="Food Category">Food Category: </label>
+        <input id="Food Category" type="number" onchange="updateBoundary()" value="${food}">
+    </form>
+</div>
+
 
 <table>
     <thead>
@@ -60,8 +205,6 @@
     </tbody>
 </table>
 
-<form method="post" action="/login">
-    <button type="submit">Log out</button>
-</form>
 </body>
+
 </html>
