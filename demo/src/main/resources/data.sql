@@ -1,7 +1,6 @@
 INSERT INTO 
-	users (first_name, last_name, email, password)
+	users (first_name, last_name, password, email, latitude, longitude)
 VALUES
-  	('John', 'Some', 'Jsom213@gmail.com',123),
-  	('Will', 'Do', 'DoW1000@gmail.com',123),
-  	('Will', 'Howard', 'will222@gmail.com',333);
-
+  	('John', 'Some', '123', 'Jsom213@gmail.com', -27.4785, 153.0284),
+  	('Will', 'Do', '123', 'DoW1000@gmail.com', -27.4783, 153.0290),
+  	('Will', 'Howard','333', 'will222@gmail.com', -27.4788, 153.0279);
