@@ -35,10 +35,10 @@
     <form method="post" th:action="@{/login}">
         <div class="container text-center" id="Login-container">
 
-            <h1 class="my-5 display-5 fw-bold ls-tight"> Register </h1>
+            <h1 class="my-5 display-5 fw-bold ls-tight"> Login </h1>
 
 
-            <div class="col-xl" id="Login-field">
+
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row">
                     <div class="col-md-6 mb-4">
@@ -72,7 +72,7 @@
                 <button type="submit" name="login" value="Login" class="btn btn-primary btn-block mb-4">Sign up</button>
                 <button type="submit" name="register" value="Register" class="btn btn-primary btn-block mb-4" th:disabled="${isRegistering}" >reg</button>
 
-            </div>
+
 
 
         </div>

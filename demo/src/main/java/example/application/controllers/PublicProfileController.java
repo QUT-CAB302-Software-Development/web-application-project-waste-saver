@@ -32,7 +32,6 @@ public class PublicProfileController {
             userDAO.addUser(u);
             firstTime=false;
         }
-
         logged = userDAO.getUser("jayden@gmail");
 
         user = userDAO.getUser("jayden@gmail");

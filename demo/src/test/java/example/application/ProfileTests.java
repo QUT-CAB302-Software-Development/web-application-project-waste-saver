@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ProfileTests {
 
-    private User loggedIn = new User("Jayden Hobbs", "Pass1", "jayden@qut", new double[]{});
+    private User loggedIn = new User("Jayden Hobbs", "Pass1", "jayden@qut", "a@gmial.com" , new double[]{});
     private ProfileLogic logic = new ProfileLogic();
     private final StaticUserDAO userDAO = new StaticUserDAO();
 
