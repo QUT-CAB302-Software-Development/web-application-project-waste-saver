@@ -8,6 +8,7 @@ public class Donation {
 
 
     public Donation(){
+
         this.donationDate = new Date();
     }
 

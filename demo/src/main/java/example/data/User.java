@@ -16,19 +16,20 @@ public class User {
     /**
      * Creates a new User.
      *
-     * @param fname     The first name of the user.
-     * @param lname     The last name of the user.
-     * @param password The password of the user.
-     * @param email    The email of the user.
-     * @param coordinates The coordinates of the user.
+     * @param firstName     The first name of the user.
+     * @param lastName      The last name of the user.
+     * @param password      The password of the user.
+     * @param email         The email of the user.
+     * @param coordinates   The coordinates of the user.
      */
-    public User(String fname, String lname, String password, String email, double [] coordinates) {
-        this.firstName = fname;
-        this.lastName = lname;
+    public User(String firstName, String lastName, String password, String email, double [] coordinates) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.coordinates = coordinates;
         this.preferences = new UserPref();
+        this.statistics = new UserStats();
     }
 
     /**
@@ -139,6 +140,11 @@ public class User {
 
     public boolean setPreferences(UserPref newPreferences) {
         this.preferences = newPreferences;
+        return true;
+    }
+
+    public boolean setStatistics(UserStats newStatistics) {
+        this.statistics = newStatistics;
         return true;
     }
 
