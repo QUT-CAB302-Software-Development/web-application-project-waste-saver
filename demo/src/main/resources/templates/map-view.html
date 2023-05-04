@@ -79,17 +79,19 @@
 <div id="map"></div>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    var map = L.map('map').setView([-27.4785, 153.0284], 20);
+
+    var chosenuser = /*[[${chosenuser}]]*/;
+
+    var map = L.map('map').setView([chosenuser.latitude, chosenuser.longitude], 20);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
     var mapusers = [[${ mapusers }]];
-    var chosenuser = /*[[${chosenuser}]]*/;
     var dummyfood = [[${ dummyfood }]];
 
-    var boundry = L.circle(chosenuser.coordinates, {
+    var boundry = L.circle([-27.4785, 153.0284], {
         color: '',
         fillColor: 'blue',
         fillOpacity: 0.2,
@@ -104,14 +106,17 @@
         var user = mapusers[i];
         var food = dummyfood[i];
         var expiration = food.expirationDate; // Save the original expiration date
+
         var timeunit = expiration / 10080 > 1 ? "Weeks" : expiration / 1440 > 1 ? "Days" : expiration / 60 > 1 ? "Hours" : "Minutes";
+
         var unit = expiration / 10080 > 1 ? expiration / 10080 : expiration / 1440 > 1 ? expiration / 1440
          : expiration / 60 > 1 ? expiration / 60 : expiration;
+
         var classcolor = timeunit == 'Weeks' ? "good" : timeunit == 'Days' ? "good" : timeunit == "Hours" ? 'okay' :
             timeunit == "Minutes" ? 'bad' : 'bad';
 
-        var marker = L.marker(user.coordinates) // Create a marker
-            .bindPopup("<b>" + user.name + "</b><b>" + " is donating: " + "</b><br>" + food.name
+        var marker = L.marker([user.latitude, user.longitude]) // Create a marker
+            .bindPopup("<b>" + user.firstName + " " + user.lastName + "</b><b>" + " is donating: " + "</b><br>" + food.name
                 + "<br> Expiring in " + Math.floor(unit) + "</b> " + timeunit + "<br><br>"
         + "<form method='post' action='/profile'><button type='submit' class='btn btn-success'>View Profile</button></form>", {
             class: classcolor }) // Bind popup to marker
@@ -173,15 +178,14 @@
 
 </script>
 
-
 <div class="sidebar">
     <form onsubmit="return false;">
         <label for="radiusInput">Radius: </label>
-        <input id="radiusInput" type="number" onchange="updateBoundary()" value="${radius}">
+        <input id="radiusInput" type="number" onchange="updateBoundary()" value="80">
     </form>
     <form onsubmit="return false;">
         <label for="maximumPeopleInput">Maximum people: </label>
-        <input id="maximumPeopleInput" type="number" onchange="updateBoundary()" value="${maximumPeople}">
+        <input id="maximumPeopleInput" type="number" onchange="updateBoundary()" value="50">
     </form>
     <form onsubmit="return false;">
         <label for="Food Category">Food Category: </label>
@@ -190,20 +194,6 @@
 </div>
 
 
-<table>
-    <thead>
-    <tr>
-        <th>Email</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.name}"></td>
-    </tr>
-    </tbody>
-</table>
 
 </body>
 
