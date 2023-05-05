@@ -74,6 +74,23 @@ public class MapViewController {
         dummyFoodItems.add(new FoodItem("Tomahawk Steak", 10052));
         dummyFoodItems.add(new FoodItem("Halal Khebabs", 4922));
         dummyFoodItems.add(new FoodItem("Chicken and Rice", 40));
+        dummyFoodItems.add(new FoodItem("Spaghetti Bolognese", 7314));
+        dummyFoodItems.add(new FoodItem("Taco Salad", 5500));
+        dummyFoodItems.add(new FoodItem("Vegetable Stir Fry", 2481));
+        dummyFoodItems.add(new FoodItem("Fish and Chips", 1123));
+        dummyFoodItems.add(new FoodItem("Pepperoni Pizza", 9136));
+        dummyFoodItems.add(new FoodItem("Chicken Tikka Masala", 6745));
+        dummyFoodItems.add(new FoodItem("Beef Burger", 8321));
+        dummyFoodItems.add(new FoodItem("Vegan Pad Thai", 4275));
+        dummyFoodItems.add(new FoodItem("Seafood Paella", 5621));
+        dummyFoodItems.add(new FoodItem("Falafel Wrap", 3692));
+        dummyFoodItems.add(new FoodItem("Sushi Platter", 9182));
+        dummyFoodItems.add(new FoodItem("Beef Stroganoff", 7786));
+        dummyFoodItems.add(new FoodItem("Gourmet Grilled Cheese", 2843));
+        dummyFoodItems.add(new FoodItem("Pesto Pasta", 5121));
+        dummyFoodItems.add(new FoodItem("Shrimp Scampi", 6462));
+        dummyFoodItems.add(new FoodItem("Lobster Roll", 8623));
+        dummyFoodItems.add(new FoodItem("BBQ Ribs", 7321));
 
         // add attributes to the model
         model.addAttribute("mapusers", userList);
@@ -93,6 +110,11 @@ public class MapViewController {
     @PostMapping("/login")
     public String goback() {
         return "redirect:/login";
+    }
+
+    @PostMapping("/public-profile")
+    public String publicprofile() {
+        return "redirect:/public-profile";
     }
 
 }
