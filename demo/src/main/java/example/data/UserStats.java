@@ -29,6 +29,13 @@ public class UserStats {
         this.reviews = new LinkedList<>();
     }
 
+    public UserStats(int points){
+        this.saverPoints = points;
+        this.joinDate = LocalDate.now();
+        this.donations = new LinkedList<>();
+        this.reviews = new LinkedList<>();
+    }
+
     /**
      * Gets the points of the user.
      *
