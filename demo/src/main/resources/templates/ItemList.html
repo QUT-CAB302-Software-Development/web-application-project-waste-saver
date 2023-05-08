@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="navbar">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Waste Saver</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/viewmap">View Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/viewlist">View List</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <a class="nav-link" href="/login">Login</a>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+<h1>Item list</h1>
+<form>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <br>
+    <label for="type">Type:</label>
+    <select id="type" name="type">
+        <option value="">Select Type</option>
+        <option value="Animal Product">Animal Product</option>
+        <option value="Vegetable">Vegetable</option>
+        <option value="Diary">Diary</option>
+        <option value="Carbs">Carbs</option>
+        <option value="Miscellaneous">Miscellaneous</option>
+    </select>
+    <br>
+    <label for="expiry">Expiry Date:</label>
+    <input type="date" id="expiry" name="expiry">
+    <button type="button" onclick="addItem()">Add item</button>
+    <hr>
+</form>
+<div>
+    <label for="sort">Sort by:</label>
+    <select id="sort" name="sort">
+        <option value="expiry">Expiry Date</option>
+        <option value="type">Type</option>
+    </select>
+    <button type="button" onclick="sortItems()">Sort</button>
+</div>
+<ul id="list"></ul>
+<script>
+      var items = [];
+
+      function addItem() {
+        var name = document.getElementById("name").value.trim();
+        var type = document.getElementById("type").value.trim();
+        var expiry = document.getElementById("expiry").value.trim();
+        if (name === "" || type === "" || expiry === "") {
+          alert("Please fill in all fields");
+          return;
+        }
+        var item = {
+          name: name,
+          type: type,
+          expiry: new Date(expiry),
+          status: "Unused"
+        };
+        items.push(item);
+        renderList();
+        document.getElementById("name").value = "";
+        document.getElementById("type").value = "";
+        document.getElementById("expiry").value = "";
+      }
+
+      function removeItem(index) {
+        items.splice(index, 1);
+        renderList();
+      }
+
+      function changeStatus(index) {
+        var item = items[index];
+        if (item.status === "Unused") {
+          var currentDate = new Date();
+          if (currentDate > item.expiry) {
+            item.status = "Expired";
+          } else {
+            item.status = "Used";
+          }
+        } else {
+          item.status = "Unused";
+        }
+        renderList();
+      }
+
+      function sortItems() {
+        var sortKey = document.getElementById("sort").value;
+        if (sortKey === "expiry") {
+          items.sort(function(a, b) {
+            return a.expiry - b.expiry;
+          });
+        } else if (sortKey === "type") {
+          items.sort(function(a, b) {
+            return a.type.localeCompare(b.type);
+          });
+        }
+        renderList();
+      }
+
+      function renderList() {
+        var list = document.getElementById("list");
+        list.innerHTML = "";
+        items.forEach(function(item, index) {
+          var li = document.createElement("li");
+          var nameSpan = document.createElement("span");
+          nameSpan.appendChild(document.createTextNode(item.name));
+		  li.appendChild(nameSpan);
+                var typeSpan = document.createElement("span");
+      typeSpan.appendChild(document.createTextNode(item.type));
+      li.appendChild(document.createTextNode(" - "));
+      li.appendChild(typeSpan);
+
+      var expirySpan = document.createElement("span");
+      expirySpan.appendChild(document.createTextNode(item.expiry.toLocaleDateString()));
+      li.appendChild(document.createTextNode(" - "));
+      li.appendChild(expirySpan);
+
+      var statusButton = document.createElement("button");
+      statusButton.onclick = function() {
+        changeStatus(index);
+      };
+      statusButton.appendChild(document.createTextNode(item.status));
+      li.appendChild(document.createTextNode(" - "));
+      li.appendChild(statusButton);
+
+      var deleteButton = document.createElement("button");
+      deleteButton.onclick = function() {
+        removeItem(index);
+      };
+      deleteButton.appendChild(document.createTextNode("Delete"));
+      li.appendChild(document.createTextNode(" "));
+      li.appendChild(deleteButton);
+
+      list.appendChild(li);
+    });
+  }
+</script>
+</body>
+</html>
