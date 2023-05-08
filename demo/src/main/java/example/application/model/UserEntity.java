@@ -28,12 +28,6 @@ public class UserEntity {
 	@Column(name="longitude", precision=9, scale=6)
 	private Double longitude;
 
-	@Column(name="latitude", precision=9, scale=6)
-	private Double latitude;
-
-	@Column(name="longitude", precision=9, scale=6)
-	private Double longitude;
-
 	public Long getId() {
 		return id;
 	}
