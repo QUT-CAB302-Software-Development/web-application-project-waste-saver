@@ -1,3 +1,4 @@
+
 INSERT INTO 
 	users (first_name, last_name, password, email, latitude, longitude)
 VALUES
@@ -18,3 +19,4 @@ VALUES
   	('Lucas', 'Taylor', '890', 'lucas.taylor@yahoo.com', -20.7484, 139.4900), -- Mount Isa
   	('Sophie', 'Johnson', '123', 'sophie.johnson@gmail.com', -21.1529, 149.1526), -- Mackay
   	('Benjamin', 'Anderson', '456', 'benjamin.anderson@hotmail.com', -27.5519877,152.914515); -- Ipswich
+
