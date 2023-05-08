@@ -107,6 +107,9 @@
       // Retrieve the user selected on the previous page
       var chosenuser = /*[[${chosenuser}]]*/;
 
+     // Set the coordinates of the current location panned on the map
+      var pannedUser = [chosenuser.latitude, chosenuser.longitude]
+
       // Radius switch value
       var radiusIsOn = true;
 
@@ -206,10 +209,7 @@
     filterMarkers(); // Initial filter of markers based on boundary
 
     function updateBoundary() {
-        if(document.getElementById("radiusInput") != null) {
-            var radius = document.getElementById("radiusInput").value;
-        }
-        else { var radius = 80; }
+        var radius = document.getElementById("radiusInput").value;
         boundry.setRadius(radius);
         filterMarkers();
     }
@@ -238,6 +238,47 @@
         markerGroup.addTo(map); // Add filtered layer group to map
     }
 
+function goNextPerson() {
+    var j = -1;
+    for (var i = 0; i < markers.length; i ++) {
+        if(markerGroup.hasLayer(markers[i]) && markers[i].getLatLng().equals(L.latLng(pannedUser[0], pannedUser[1]))) {
+            // check if marker is within radius of filterMarkers
+            var distance = markers[i].getLatLng().distanceTo(boundry.getLatLng());
+            if (distance <= boundry.getRadius()) {
+                j = i + 1;
+                break;
+            }
+        }
+    }
+    if(j != -1) {
+        // update pannedUser and pan to next marker within radius
+        pannedUser = [markers[j].getLatLng().lat, markers[j].getLatLng().lng];
+        map.panTo([markers[j].getLatLng().lat, markers[j].getLatLng().lng]);
+        console.log([markers[j].getLatLng().lat, markers[j].getLatLng().lng]);
+    }
+}
+
+function goPreviousPerson() {
+    var j = -1;
+    for (var i = 0; i < markers.length; i ++) {
+        if(markerGroup.hasLayer(markers[i]) && markers[i].getLatLng().equals(L.latLng(pannedUser[0], pannedUser[1]))) {
+            // check if marker is within radius of filterMarkers
+            var distance = markers[i].getLatLng().distanceTo(boundry.getLatLng());
+            if (distance <= boundry.getRadius()) {
+                j = i - 1;
+                break;
+            }
+        }
+    }
+    if(j != -1) {
+        // update pannedUser and pan to next marker within radius
+        pannedUser = [markers[j].getLatLng().lat, markers[j].getLatLng().lng];
+        map.panTo([markers[j].getLatLng().lat, markers[j].getLatLng().lng]);
+        console.log([markers[j].getLatLng().lat, markers[j].getLatLng().lng]);
+    }
+}
+
+
 /*]]>*/
 
 </script>
@@ -264,6 +305,7 @@
         <input class="form-check-input" type="checkbox" role="switch" id="radiusSwitch" checked>
         <label class="form-check-label" for="radiusSwitch">Toggle radius</label>
     </div>
+    <button type="button" class="btn btn-success" onclick="goNextPerson()">Next Person</button>
 </div>
 <script>
     // check the available autocomplete options on the https://www.npmjs.com/package/@geoapify/geocoder-autocomplete
