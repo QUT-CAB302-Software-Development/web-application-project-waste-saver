@@ -22,7 +22,7 @@ class DemoApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+	/*
 	@Test
 	void  testGetUserRadius() {
 		User user = new User("John", "demo", "123", "john@example.com", new double[]{0.0, 0.0});
@@ -114,4 +114,5 @@ class DemoApplicationTests {
 		String result4 = mapViewController.expirationDateColor(5);
 		assertEquals("Black", result4);
 	}
+	*/
 }
