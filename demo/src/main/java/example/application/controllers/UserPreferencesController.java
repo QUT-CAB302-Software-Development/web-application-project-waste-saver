@@ -17,12 +17,10 @@ public class UserPreferencesController {
     private final StaticUserDAO userDAO = new StaticUserDAO();
 
     /**
-     * The singleton instance of the preferences logic class. This is used to access the
+     * An instance of the preferences logic class. This is used to access the
      * logic of the preferences screen.
      */
     private final PreferencesLogic logic = new PreferencesLogic();
-    private boolean firstTime = true;
-
     private User logged;
     private User user;
 
@@ -36,7 +34,6 @@ public class UserPreferencesController {
     public String showPreferencesForm(Model model) {
 
         logged = userDAO.getUser("jayden@gmail");
-
         user = userDAO.getUser("jayden@gmail");
 
         for (User u1 : userDAO.listUsers())

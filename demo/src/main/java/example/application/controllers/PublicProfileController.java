@@ -18,26 +18,6 @@ public class PublicProfileController {
     private User logged;
     private User user;
 
-    private boolean firstTime = true;
-
-    public void firstTimeFunc(){
-        if (firstTime){
-            User u = new User("Jayden", "Hobbs", "password", "jayden@gmail", new double []{-27.4785, 153.0284});
-            userDAO.addUser(u);
-            u = new User("Bob", "Dylan", "123", "bob@dylan.com", new double []{-27.4785, 153.0284});
-            UserStats stats = u.getStatistics();
-            stats.setPoints(369);
-            stats.setJoinDate(LocalDate.of(2022, 3, 7));
-            stats.addReview(new Review(5, "bestuser", "this guy is pretty good"));
-            stats.addReview(new Review(1, "baduser", "this guy is pretty bad"));
-            u.setStatistics(stats);
-
-            userDAO.addUser(u);
-            firstTime=false;
-        }
-    }
-
-
     /**
      * Displays the Public Profile page.
      *
@@ -46,9 +26,7 @@ public class PublicProfileController {
      */
     @GetMapping("/public-profile")
     public String showPublicProfileForm(Model model) {
-        if (firstTime){
-            firstTimeFunc();
-        }
+
         logged = userDAO.getUser("jayden@gmail");
 
         user = userDAO.getUser("jayden@gmail");
@@ -63,9 +41,7 @@ public class PublicProfileController {
 
     @GetMapping("/public-profile/{user_email}")
     public String showUserProfileForm(Model model, @PathVariable("user_email") String user_email) {
-        if (firstTime){
-            firstTimeFunc();
-        }
+
 
         logged = userDAO.getUser(user_email);
         user = userDAO.getUser(user_email);

@@ -5,7 +5,6 @@ public class Review {
     private int rating;
     private String user;
     private String message;
-    private String ratingString;
 
     public Review(int rating, String user, String message){
         this.rating = rating;
