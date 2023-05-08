@@ -1,19 +1,15 @@
 package example.application.controllers;
 
-import example.data.ProfileLogic;
-import example.data.StaticUserDAO;
-import example.data.User;
-import example.data.UserDAO;
+import example.data.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * Controller for the profile page.
+ * Controller for the user preferences page.
  */
 @Controller
-public class ProfileController {
+public class UserPreferencesController {
     /**
      * The singleton instance of the database connection. This is used to access the
      * database of users.
@@ -21,12 +17,10 @@ public class ProfileController {
     private final StaticUserDAO userDAO = new StaticUserDAO();
 
     /**
-     * The singleton instance of the profile logic class. This is used to access the
-     * logic of the profile screen.
+     * An instance of the preferences logic class. This is used to access the
+     * logic of the preferences screen.
      */
-    private final ProfileLogic logic = new ProfileLogic();
-    private boolean firstTime = true;
-
+    private final PreferencesLogic logic = new PreferencesLogic();
     private User logged;
     private User user;
 
@@ -36,16 +30,10 @@ public class ProfileController {
      * @param model The model that defines the attributes to be displayed.
      * @return The name of the view to display.
      */
-    @GetMapping("/profile")
-    public String showProfileForm(Model model) {
-        System.out.println(firstTime);
-        if (firstTime){
-            User u = new User("Jayden", "Hobbs", "password", "jayden@gmail", new double []{-27.4785, 153.0284});
-            userDAO.addUser(u);
-            firstTime=false;
-        }
-        logged = userDAO.getUser("jayden@gmail");
+    @GetMapping("/preferences")
+    public String showPreferencesForm(Model model) {
 
+        logged = userDAO.getUser("jayden@gmail");
         user = userDAO.getUser("jayden@gmail");
 
         for (User u1 : userDAO.listUsers())
@@ -54,7 +42,7 @@ public class ProfileController {
         }
         model.addAttribute("logged", logged);
         model.addAttribute("user", user);
-        return "profile-page";
+        return "user-preferences-page";
     }
 
     /**
@@ -63,13 +51,14 @@ public class ProfileController {
      * @param model The model to add attributes to.
      * @return The name of the view to display.
      */
-    @RequestMapping(value = "/profile", method = RequestMethod.POST, params = "save")
+    @RequestMapping(value = "/preferences", method = RequestMethod.POST, params = "save")
     public String saveSubmit(@ModelAttribute User user, Model model) {
 
         logic.processPersonalDetails(logged, user.getFirstName(), user.getLastName(), null);
+        logic.processPreferences(logged, user.getPreferences());
 
         model.addAttribute("logged", userDAO.getUser(logged.getEmail()));
         model.addAttribute("user", userDAO.getUser(logged.getEmail()));
-        return "profile-page";
+        return "user-preferences-page";
     }
 }

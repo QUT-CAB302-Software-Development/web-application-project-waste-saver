@@ -2,7 +2,6 @@ package example.application.model;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name="USERS")
 public class UserEntity {
@@ -17,11 +16,17 @@ public class UserEntity {
 	@Column(name="last_name")
 	private String lastName;
 
+	@Column(name="password")
+	private String password;
+
 	@Column(name="email", nullable=false, length=200)
 	private String email;
 
-	@Column(name="password")
-	private String password;
+	@Column(name="latitude", precision=9, scale=6)
+	private Double latitude;
+
+	@Column(name="longitude", precision=9, scale=6)
+	private Double longitude;
 
 	@Column(name="latitude", precision=9, scale=6)
 	private Double latitude;
@@ -69,16 +74,28 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public Double getLatitude() {return latitude;}
 
-	public void setLatitude(Double latitude) {this.latitude = latitude;}
+	public Double getLatitude() {
+		return latitude;
+	}
 
-	public Double getLongitude() {return longitude;}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
 
-	public void setLongitude(Double longitude) {this.longitude = longitude;}
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName +
-				", lastName=" + lastName + ", email=" + email   + "]";
+		return "UserEntity [id=" + id + ", firstName=" + firstName +
+				", lastName=" + lastName + ", email=" + email   +
+				", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
 }
