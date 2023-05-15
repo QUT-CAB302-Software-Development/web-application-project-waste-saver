@@ -83,3 +83,6 @@ CREATE TABLE food(
 2023-05-08 18:52:54 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]FOOD"; SQL statement:
 FOOD [42000-214]
+2023-05-15 16:32:18 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]USERS"; expected "UPDATE, USE"; SQL statement:
+USERS [42001-214]

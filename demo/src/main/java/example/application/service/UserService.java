@@ -2,6 +2,7 @@ package example.application.service;
 
 import example.application.model.UserEntity;
 import example.application.model.repository.UserRepository;
+import example.data.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import example.application.exception.RecordNotFoundException;
@@ -40,6 +41,16 @@ public class UserService {
 
     }
 
+    public UserEntity getUserByUserName(String username) {
+        System.out.println("getAllusername");
+        List<UserEntity> result = (List<UserEntity>) repository.findAll();
+        for(UserEntity user: result)
+        {
+            if(user.getUsername().equals(username))
+                return user;
+        }
+        return null;
+    }
     public UserEntity createOrUpdateUser(UserEntity entity) {
         if (entity.getId() == null) {
             entity = repository.save(entity);
