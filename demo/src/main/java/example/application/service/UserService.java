@@ -33,9 +33,11 @@ public class UserService {
 
         if(user.isPresent()) {
             return user.get();
-        } else {
+        }
+        else {
             throw new RecordNotFoundException("No User record exist for given id");
         }
+
     }
 
     public UserEntity createOrUpdateUser(UserEntity entity) {

@@ -68,6 +68,7 @@ public class UserEntity {
 		this.password = password;
 	}
 
+
 	public Double getLatitude() {
 		return latitude;
 	}
@@ -83,6 +84,7 @@ public class UserEntity {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
+
 
 	@Override
 	public String toString() {
