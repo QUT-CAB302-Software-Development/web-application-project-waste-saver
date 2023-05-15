@@ -149,29 +149,32 @@ public class UserStats {
         this.reviews = reviews;
         return true;
     }
-
-    public String averageReviews(){
+    public int averageReviewsInt(){
         int sum = 0;
         int count = 0;
         for (Review r : reviews){
             sum += r.getRating();
             count++;
         }
+        if(count > 0) {
+            return Math.round(sum / count);
+        } else {
+            return 0;
+        }
+    }
 
+    public String averageReviews(){
         String str = "";
 
-        if(count > 0){
-            int avg = Math.round( sum / count );
+        int avg = averageReviewsInt();
 
 
-            for (int i = 0; i<avg; i++){
-                str += "\u2B50";
-            }
+        for (int i = 0; i<avg; i++){
+            str += "\u2B50";
         }
 
 
         return str;
-
     }
 
     /**

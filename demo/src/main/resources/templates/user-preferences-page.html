@@ -77,7 +77,8 @@
                 <div class="col-sm-3 border-end" id="profileDetails">
                     <img src="../img/default-profile.jpg" alt="default profile pic" id="profile-img">
                     <h4 th:text="|${logged.firstName} ${logged.lastName}|">Profile name</h4>
-                    <p>Second line</p>
+                    <h6 th:text="'Member since ' + ${logged.statistics.getJoinString()}">Member since</h6>
+                    <p><i>Personal Account</i></p>
                 </div>
 
 

@@ -71,10 +71,15 @@ public class LeaderboardLogic {
     }
 
 
-    public List<User> sortPoints(){
+    public List<User> sortPoints(String sort){
         List<User> userlist = new ArrayList<User>(userDAO.listUsers());
 
-        Collections.sort(userlist, new SaverPointsComparator());
+        if(sort.equals("SaverPoints")){
+            Collections.sort(userlist, new SaverPointsComparator());
+
+        } else if(sort.equals("Reviews")){
+            Collections.sort(userlist, new ReviewComparator());
+        }
 
         return userlist;
     }
@@ -83,9 +88,13 @@ public class LeaderboardLogic {
 class SaverPointsComparator implements java.util.Comparator<User>{
     @Override
     public int compare(User a, User b){
-
         return b.getStatistics().getPoints() - a.getStatistics().getPoints();
+    }
+}
 
-
+class ReviewComparator implements java.util.Comparator<User>{
+    @Override
+    public int compare(User a, User b){
+        return b.getStatistics().averageReviewsInt() - a.getStatistics().averageReviewsInt();
     }
 }

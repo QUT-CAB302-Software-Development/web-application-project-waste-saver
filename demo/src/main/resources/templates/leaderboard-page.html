@@ -21,6 +21,32 @@
         background-color: white;
     }
 
+    #profileDetails {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: auto;
+    }
+
+    #profile-img {
+        height: 150px;
+        width: auto;
+        border-radius: 50%;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: green;
+        text-decoration:none;
+        cursor:pointer;
+    }
 
     .scrollable {
         height: calc(100vh - 6rem);
@@ -28,31 +54,39 @@
         overflow-y: scroll;
     }
 
-
     .scrollable::-webkit-scrollbar {
         width: 0px;
         background: transparent;
     }
 
-
     * {
         -ms-overflow-style: none !important;
     }
-
 </style>
 
 <body>
-
+<!-- Background Color -->
 <div class="p-5" id="bg-colour">
-
 
     <!-- Row containing main section -->
     <div class="row" id="mainSection">
 
         <!-- Leaderboard view settings column -->
         <div class="col-sm-2 border-end" id="settings">
-            <h3>Settings</h3>
-            <p>Second line</p>
+            <div id="profileDetails">
+                <img src="../img/default-profile.jpg" alt="default profile pic" id="profile-img">
+                <h4 th:text="|${logged.firstName} ${logged.lastName}|">Profile name</h4>
+                <p th:text="|Your rank: ${loggedPos}|">Your rank: </p>
+            </div>
+
+            <hr>
+            <h6>Sort by:</h6>
+            <ul>
+                <li><a href="http://localhost:8080/leaderboard/SaverPoints">Saver Points</a></li>
+                <li><a href="http://localhost:8080/leaderboard/Reviews">Reviews</a></li>
+            </ul>
+
+
 
         </div>
 
@@ -62,7 +96,7 @@
 
             <p th:text="|Sorting by ${sortType}|">Second line</p>
 
-            <table class="table">
+            <table class="table" th:with="mycounter = ${counter.get()}">
                 <thead>
                     <tr>
                         <th scope="col">Rank</th>
@@ -71,19 +105,18 @@
                 </thead>
                 <tbody>
                 <tr th:each="user : ${users2}">
-                    <td>
-                        <p>1</p>
+                    <td th:with="mycounter=${counter.getAndCount()}">
+                        <p th:text="${mycounter}">rank</p>
                     </td>
                     <td>
-                        <h5 th:text="|${user.getStatistics().getPointsString()}: ${user.getFirstName()} ${user.getLastName()}|"></h5>
+                        <a th:href="@{http://localhost:8080/public-profile/{email}(email=${user.getEmail()})}">
+                            <h5 th:text="|${user.getStatistics().getPointsString()}: ${user.getFirstName()} ${user.getLastName()}|"></h5>
+                        </a>
                         <p th:text="${user.getEmail()}"></p>
                     </td>
                 </tr>
                 </tbody>
             </table>
-
-
-
 
         </div>
 
@@ -93,8 +126,7 @@
 
             <p>Not implemented</p>
 
-
-            <table class="table">
+            <table class="table" th:with="mycounter = ${counter.clear()}">
                 <thead>
                 <tr>
                     <th scope="col">Rank</th>
@@ -103,11 +135,13 @@
                 </thead>
                 <tbody>
                 <tr th:each="user : ${allUsers}">
-                    <td>
-                        <p>1</p>
+                    <td th:with="mycounter=${counter.getAndCount()}">
+                        <p th:text="${mycounter}">rank</p>
                     </td>
                     <td>
-                        <h5 th:text="|${user.getStatistics().getPointsString()}: ${user.getFirstName()} ${user.getLastName()}|"></h5>
+                        <a th:href="@{http://localhost:8080/public-profile/{email}(email=${user.getEmail()})}">
+                            <h5 th:text="|${user.getStatistics().getPointsString()}: ${user.getFirstName()} ${user.getLastName()}|"></h5>
+                        </a>
                         <p th:text="${user.getEmail()}"></p>
                     </td>
                 </tr>
