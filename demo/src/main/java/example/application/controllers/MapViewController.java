@@ -107,11 +107,6 @@ public class MapViewController {
      *
      * @return The name of the view to display.
      */
-    @PostMapping("/login")
-    public String goback() {
-        return "redirect:/login";
-    }
-
     @PostMapping("/public-profile")
     public String publicprofile() {
         return "redirect:/public-profile";

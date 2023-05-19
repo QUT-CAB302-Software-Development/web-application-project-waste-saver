@@ -46,6 +46,7 @@ public class UserService {
         List<UserEntity> result = (List<UserEntity>) repository.findAll();
         for(UserEntity user: result)
         {
+            if(user.getUsername() == null) return null;
             if(user.getUsername().equals(username))
                 return user;
         }

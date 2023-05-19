@@ -106,6 +106,7 @@ public class UserEntity {
 	public String toString() {
 		return "UserEntity [id=" + id + ", firstName=" + firstName +
 				", lastName=" + lastName + ", email=" + email   +
-				", latitude=" + latitude + ", longitude=" + longitude + ", username=" + username + "]";
+				", password=" + password + ", latitude=" + latitude +
+				", longitude=" + longitude + ", username=" + username + "]";
 	}
 }
