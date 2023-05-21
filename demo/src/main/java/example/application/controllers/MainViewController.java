@@ -27,9 +27,6 @@ public class MainViewController {
      */
     @GetMapping("/main")
     public String main(Model model) {
-        User user = (User) model.getAttribute("user");
-        model.addAttribute("user", user);
-        model.addAttribute("users", userDAO.listUsers());
         return "main-view";
     }
 
