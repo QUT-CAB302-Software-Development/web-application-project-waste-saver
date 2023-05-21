@@ -60,7 +60,44 @@
 </div>
 <ul id="list"></ul>
 <script>
-      var items = [];
+      var items = [
+      {
+          name: "Beef Mince",
+          type: "Animal Product",
+          quantity: 500,
+          expiry: new Date ("05/26/2023"),
+          status: "Unused"
+      },
+      {
+          name: "Milk",
+          type: "Diary",
+          quantity: 3000,
+          expiry: new Date ("05/29/2023"),
+          status: "Unused"
+      },
+      {
+          name: "Salt",
+          type: "Miscellaneous",
+          quantity: 200,
+          expiry: new Date ("08/03/2025"),
+          status: "Unused"
+      },
+      {
+          name: "Salmon",
+          type: "Animal Product",
+          quantity: 500,
+          expiry: new Date ("05/27/2023"),
+          status: "Unused"
+      },
+      {
+          name: "Tomato",
+          type: "Vegetable",
+          quantity: 1000,
+          expiry: new Date ("05/25/2023"),
+          status: "Unused"
+      }
+      ];
+      renderList();
 
       function addItem() {
         var name = document.getElementById("name").value.trim();
@@ -112,6 +149,10 @@
           items.sort(function(a, b) {
             return a.expiry - b.expiry;
           });
+        } else if (sortKey === "quantity") {
+          items.sort(function(a, b) {
+            return a.quantity - b.quantity;
+          });
         } else if (sortKey === "type") {
           items.sort(function(a, b) {
             return a.type.localeCompare(b.type);
@@ -128,45 +169,45 @@
           var nameSpan = document.createElement("span");
           nameSpan.appendChild(document.createTextNode(item.name));
 		  li.appendChild(nameSpan);
-                var typeSpan = document.createElement("span");
-      typeSpan.appendChild(document.createTextNode(item.type));
-      li.appendChild(document.createTextNode(" - "));
-      li.appendChild(typeSpan);
+          var typeSpan = document.createElement("span");
+          typeSpan.appendChild(document.createTextNode(item.type));
+          li.appendChild(document.createTextNode(" - "));
+          li.appendChild(typeSpan);
 
-      var quantitySpan = document.createElement("span");
-      quantitySpan.appendChild(document.createTextNode(item.quantity));
-      li.appendChild(document.createTextNode(" - "));
-      li.appendChild(quantitySpan);
-      if ((item.type) === "Diary") {
-      li.appendChild(document.createTextNode(" mL"));
-      } else {
-      li.appendChild(document.createTextNode(" grams"));
+          var quantitySpan = document.createElement("span");
+          quantitySpan.appendChild(document.createTextNode(item.quantity));
+          li.appendChild(document.createTextNode(" - "));
+          li.appendChild(quantitySpan);
+          if ((item.type) === "Diary") {
+          li.appendChild(document.createTextNode(" mL"));
+          } else {
+          li.appendChild(document.createTextNode(" grams"));
+          }
+
+          var expirySpan = document.createElement("span");
+          expirySpan.appendChild(document.createTextNode(item.expiry.toLocaleDateString()));
+          li.appendChild(document.createTextNode(" - "));
+          li.appendChild(expirySpan);
+
+          var statusButton = document.createElement("button");
+          statusButton.onclick = function() {
+            changeStatus(index);
+          };
+          statusButton.appendChild(document.createTextNode(item.status));
+          li.appendChild(document.createTextNode(" - "));
+          li.appendChild(statusButton);
+
+          var deleteButton = document.createElement("button");
+          deleteButton.onclick = function() {
+            removeItem(index);
+          };
+          deleteButton.appendChild(document.createTextNode("Delete"));
+          li.appendChild(document.createTextNode(" "));
+          li.appendChild(deleteButton);
+
+          list.appendChild(li);
+        });
       }
-
-      var expirySpan = document.createElement("span");
-      expirySpan.appendChild(document.createTextNode(item.expiry.toLocaleDateString()));
-      li.appendChild(document.createTextNode(" - "));
-      li.appendChild(expirySpan);
-
-      var statusButton = document.createElement("button");
-      statusButton.onclick = function() {
-        changeStatus(index);
-      };
-      statusButton.appendChild(document.createTextNode(item.status));
-      li.appendChild(document.createTextNode(" - "));
-      li.appendChild(statusButton);
-
-      var deleteButton = document.createElement("button");
-      deleteButton.onclick = function() {
-        removeItem(index);
-      };
-      deleteButton.appendChild(document.createTextNode("Delete"));
-      li.appendChild(document.createTextNode(" "));
-      li.appendChild(deleteButton);
-
-      list.appendChild(li);
-    });
-  }
 </script>
 </section>
 </body>
