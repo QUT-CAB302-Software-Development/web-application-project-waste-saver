@@ -54,6 +54,7 @@
     <select id="sort" name="sort">
         <option value="expiry">Expiry Date</option>
         <option value="type">Type</option>
+        <option value="quantity">Quantity</option>
     </select>
     <button type="button" onclick="sortItems()">Sort</button>
 </div>
@@ -73,6 +74,7 @@
         var item = {
           name: name,
           type: type,
+          quantity: quantity,
           expiry: new Date(expiry),
           status: "Unused"
         };
@@ -130,6 +132,16 @@
       typeSpan.appendChild(document.createTextNode(item.type));
       li.appendChild(document.createTextNode(" - "));
       li.appendChild(typeSpan);
+
+      var quantitySpan = document.createElement("span");
+      quantitySpan.appendChild(document.createTextNode(item.quantity));
+      li.appendChild(document.createTextNode(" - "));
+      li.appendChild(quantitySpan);
+      if ((item.type) === "Diary") {
+      li.appendChild(document.createTextNode(" mL"));
+      } else {
+      li.appendChild(document.createTextNode(" grams"));
+      }
 
       var expirySpan = document.createElement("span");
       expirySpan.appendChild(document.createTextNode(item.expiry.toLocaleDateString()));
