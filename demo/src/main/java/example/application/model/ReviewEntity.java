@@ -1,6 +1,9 @@
 package example.application.model;
 
+import example.application.exception.RecordNotFoundException;
+import example.application.service.UserService;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name="REVIEWS")
@@ -9,10 +12,10 @@ public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "author")
-    private String author;
-    @Column(name = "to_user")
-    private String to_user;
+    @Column(name = "authorID")
+    private int authorID;
+    @Column(name = "to_userID")
+    private int to_userID;
     @Column(name = "rating")
     private int rating;
     @Column(name = "message")
@@ -20,10 +23,10 @@ public class ReviewEntity {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
-    public String getTo_user() { return to_user; }
-    public void setTo_user(String to_user) { this.to_user = to_user; }
+    public int getAuthorID() { return authorID; }
+    public void setAuthorID(int authorID) { this.authorID = authorID; }
+    public int getTo_userID() { return to_userID; }
+    public void setTo_userID(int to_userID) { this.to_userID = to_userID; }
     public int getRating() { return rating; }
     public void setRating(int rating) { this.rating = rating; }
     public String getMessage() { return message; }
@@ -31,8 +34,9 @@ public class ReviewEntity {
 
     @Override
     public String toString(){
-        return "UserEntity [id=" + id + ", author=" + author +
-                ", to_user=" + to_user + ", rating=" + rating   +
+        return "UserEntity [id=" + id + ", author=" + authorID +
+                ", to_user=" + to_userID + ", rating=" + rating   +
                 ", message=" + message + "]";
     }
+
 }

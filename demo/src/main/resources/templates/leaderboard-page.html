@@ -65,6 +65,9 @@
 </style>
 
 <body>
+
+<div th:replace="~{index-page :: navbar}"/>
+
 <!-- Background Color -->
 <div class="p-5" id="bg-colour">
 
@@ -109,10 +112,10 @@
                         <p th:text="${mycounter}">rank</p>
                     </td>
                     <td>
-                        <a th:href="@{http://localhost:8080/public-profile/{email}(email=${user.getEmail()})}">
-                            <h5 th:text="|${user.getStatistics().getPointsString()}: ${user.getFirstName()} ${user.getLastName()}|"></h5>
+                        <a th:href="@{http://localhost:8080/public-profile/{username}(username=${user.username})}">
+                            <h5 th:text="|${user.saverPoints}: ${user.username}|"></h5>
                         </a>
-                        <p th:text="${user.getEmail()}"></p>
+                        <p th:text="${user.getUsername()}"></p>
                     </td>
                 </tr>
                 </tbody>
@@ -139,10 +142,10 @@
                         <p th:text="${mycounter}">rank</p>
                     </td>
                     <td>
-                        <a th:href="@{http://localhost:8080/public-profile/{email}(email=${user.getEmail()})}">
-                            <h5 th:text="|${user.getStatistics().getPointsString()}: ${user.getFirstName()} ${user.getLastName()}|"></h5>
+                        <a th:href="@{http://localhost:8080/public-profile/{username}(username=${user.username})}">
+                            <h5 th:text="|${user.saverPoints}: ${user.username}|"></h5>
                         </a>
-                        <p th:text="${user.getEmail()}"></p>
+                        <p th:text="${user.username}"></p>
                     </td>
                 </tr>
                 </tbody>
