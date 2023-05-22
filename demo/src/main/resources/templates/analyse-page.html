@@ -29,24 +29,31 @@
 
 <section id="bg-colour">
 <body>
-<div th:fragment="navbar">
+<!--<div th:replace="~{index-page :: navbar}"></div>-->
 
+<div th:fragment="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Waste Saver</a>
+            <a class="navbar-brand" href="/">Waste Saver</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Grocery List</a>
+                        <a class="nav-link" aria-current="page" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Analytics</a>
+                        <a class="nav-link" href="/profile">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Map</a>
+                        <a class="nav-link" href="/viewmap">View Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link activate" href="/viewlist">View List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link activate" href="/analyse">Analyse</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -57,12 +64,13 @@
         </div>
     </nav>
 
-
-
 </div>
 
 <div class="s-1">
     <div class="point-list">
+        <script type="text/javascript">
+            var food1 = 48;
+        </script>
         <ol>
             <li id="food-item">
                 <a class="food-link" id="h1-text" href="#">Bread</a>
@@ -120,8 +128,12 @@
                             <td>
                                 <p id="demo"></p>
                                 <script>
+                                       var point1 = 10;
+                                       var point2 = 20;
+                                       var point3 = 5;
+                                       var totalPoints = point1 + point2 + point3;
                                        function getPoints() {
-                                            document.getElementById("demo").innerHTML = "35 points";
+                                            document.getElementById("demo").innerHTML = totalPoints + " points";
                                             document.getElementById("demo").style.fontWeight = "bold";
                                             document.getElementById("demo").style.fontSize = "30px";
                                         }

@@ -6,6 +6,21 @@ import java.util.Date;
 import static java.lang.Integer.parseInt;
 
 public class AnalyseCalc {
+
+    private final StaticUserDAO userDAO = new StaticUserDAO();
+
+    public void saveUserPoints(User user, String firstName, String lastName, int userPoints) {
+        if (firstName != null && !firstName.isEmpty()){
+            user.setFirstName(firstName);
+        }
+
+        if (lastName != null && !lastName.isEmpty()){
+            user.setLastName(lastName);
+        }
+
+        userDAO.updateUser(user);
+
+    }
     public long days(String currentDate, String expiredDate) {
         var first_date = new Date(currentDate);
         var second_date = new Date(expiredDate);
@@ -15,6 +30,8 @@ public class AnalyseCalc {
         long totalDays = sub / 86400000; // Convert from milliseconds to days
         return totalDays;
     }
+
+
     public double calculateFoodConsumption(int currentMass, int initialMass) {
         double foodConsumption = Math.floor((currentMass / (double) initialMass) * 100);
         return foodConsumption;
@@ -42,7 +59,7 @@ public class AnalyseCalc {
                 return itemPoints.get(3);
             } else if (pointConverter <= 50) {
                 return itemPoints.get(4);
-            } else if (pointConverter > 50) {
+            } else {
                 if (pointConverter <= 90) {
                     return itemPoints.get(5);
                 }
