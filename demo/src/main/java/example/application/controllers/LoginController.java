@@ -30,8 +30,8 @@ public class LoginController {
         UserEntity existingUser = userService.getUserByUserName(user.getUsername());
 
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            redirectAttrs.addFlashAttribute("user", existingUser);
-            return "redirect:/main";
+            redirectAttrs.addFlashAttribute("currentuser", existingUser);
+            return "redirect:/viewmap";
         } else {
             redirectAttrs.addFlashAttribute("error", "Invalid username or password");
             return "redirect:/login";

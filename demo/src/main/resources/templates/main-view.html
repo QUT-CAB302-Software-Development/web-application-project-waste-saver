@@ -6,31 +6,5 @@
 </head>
 <body>
 <div th:replace="~{index-page :: navbar}"></div>
-<div>
-    <span>Welcome, <span th:text="${user.name}"></span>!</span>
-    <form method="post" action="/logout">
-        <button type="submit">Logout</button>
-    </form>
-
-    <form method="post" action="/viewmap">
-        <button type="submit">View Map</button>
-    </form>
-
-</div>
-
-<table>
-    <thead>
-    <tr>
-        <th>Email</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.name}"></td>
-    </tr>
-    </tbody>
-</table>
 </body>
 </html>
