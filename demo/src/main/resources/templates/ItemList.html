@@ -1,45 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Item List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        #Login-container {
+            padding-top: 180px;
+        }
+
+        label {
+            padding-left: 50px;
+        }
+
+        #bg-color{
+            height: 962px;
+            background-image: linear-gradient(#f7f4b5, #f7e5b5);
+        }
+    </style>
 </head>
 <body>
-<div th:fragment="navbar">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Waste Saver</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/viewmap">View Map</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/viewlist">View List</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <a class="nav-link" href="/login">Login</a>
+<div th:replace="~{index-page :: navbar}"/>
 
-                </ul>
-            </div>
-        </div>
-    </nav>
-<h1>Item list</h1>
+<section id="bg-color">
 <form>
+    <br>
     <label for="name">Name:</label>
     <input type="text" id="name" name="name">
-    <br>
+    <br><br>
     <label for="type">Type:</label>
     <select id="type" name="type">
         <option value="">Select Type</option>
@@ -49,7 +40,10 @@
         <option value="Carbs">Carbs</option>
         <option value="Miscellaneous">Miscellaneous</option>
     </select>
-    <br>
+    <br><br>
+    <label for="quantity">Quantity (grams/mL):</label>
+    <input type="text" id="quantity" name="quantity">
+    <br><br>
     <label for="expiry">Expiry Date:</label>
     <input type="date" id="expiry" name="expiry">
     <button type="button" onclick="addItem()">Add item</button>
@@ -60,24 +54,64 @@
     <select id="sort" name="sort">
         <option value="expiry">Expiry Date</option>
         <option value="type">Type</option>
+        <option value="quantity">Quantity</option>
     </select>
     <button type="button" onclick="sortItems()">Sort</button>
 </div>
 <ul id="list"></ul>
 <script>
-      var items = [];
+      var items = [
+      {
+          name: "Beef Mince",
+          type: "Animal Product",
+          quantity: 500,
+          expiry: new Date ("05/26/2023"),
+          status: "Unused"
+      },
+      {
+          name: "Milk",
+          type: "Diary",
+          quantity: 3000,
+          expiry: new Date ("05/29/2023"),
+          status: "Unused"
+      },
+      {
+          name: "Salt",
+          type: "Miscellaneous",
+          quantity: 200,
+          expiry: new Date ("08/03/2025"),
+          status: "Unused"
+      },
+      {
+          name: "Salmon",
+          type: "Animal Product",
+          quantity: 500,
+          expiry: new Date ("05/27/2023"),
+          status: "Unused"
+      },
+      {
+          name: "Tomato",
+          type: "Vegetable",
+          quantity: 1000,
+          expiry: new Date ("05/25/2023"),
+          status: "Unused"
+      }
+      ];
+      renderList();
 
       function addItem() {
         var name = document.getElementById("name").value.trim();
         var type = document.getElementById("type").value.trim();
+        var quantity = document.getElementById("quantity").value.trim();
         var expiry = document.getElementById("expiry").value.trim();
-        if (name === "" || type === "" || expiry === "") {
+        if (name === "" || type === "" || expiry === "" || quantity === "") {
           alert("Please fill in all fields");
           return;
         }
         var item = {
           name: name,
           type: type,
+          quantity: quantity,
           expiry: new Date(expiry),
           status: "Unused"
         };
@@ -85,6 +119,7 @@
         renderList();
         document.getElementById("name").value = "";
         document.getElementById("type").value = "";
+        document.getElementById("quantity").value = "";
         document.getElementById("expiry").value = "";
       }
 
@@ -114,6 +149,10 @@
           items.sort(function(a, b) {
             return a.expiry - b.expiry;
           });
+        } else if (sortKey === "quantity") {
+          items.sort(function(a, b) {
+            return a.quantity - b.quantity;
+          });
         } else if (sortKey === "type") {
           items.sort(function(a, b) {
             return a.type.localeCompare(b.type);
@@ -130,35 +169,46 @@
           var nameSpan = document.createElement("span");
           nameSpan.appendChild(document.createTextNode(item.name));
 		  li.appendChild(nameSpan);
-                var typeSpan = document.createElement("span");
-      typeSpan.appendChild(document.createTextNode(item.type));
-      li.appendChild(document.createTextNode(" - "));
-      li.appendChild(typeSpan);
+          var typeSpan = document.createElement("span");
+          typeSpan.appendChild(document.createTextNode(item.type));
+          li.appendChild(document.createTextNode(" - "));
+          li.appendChild(typeSpan);
 
-      var expirySpan = document.createElement("span");
-      expirySpan.appendChild(document.createTextNode(item.expiry.toLocaleDateString()));
-      li.appendChild(document.createTextNode(" - "));
-      li.appendChild(expirySpan);
+          var quantitySpan = document.createElement("span");
+          quantitySpan.appendChild(document.createTextNode(item.quantity));
+          li.appendChild(document.createTextNode(" - "));
+          li.appendChild(quantitySpan);
+          if ((item.type) === "Diary") {
+          li.appendChild(document.createTextNode(" mL"));
+          } else {
+          li.appendChild(document.createTextNode(" grams"));
+          }
 
-      var statusButton = document.createElement("button");
-      statusButton.onclick = function() {
-        changeStatus(index);
-      };
-      statusButton.appendChild(document.createTextNode(item.status));
-      li.appendChild(document.createTextNode(" - "));
-      li.appendChild(statusButton);
+          var expirySpan = document.createElement("span");
+          expirySpan.appendChild(document.createTextNode(item.expiry.toLocaleDateString()));
+          li.appendChild(document.createTextNode(" - "));
+          li.appendChild(expirySpan);
 
-      var deleteButton = document.createElement("button");
-      deleteButton.onclick = function() {
-        removeItem(index);
-      };
-      deleteButton.appendChild(document.createTextNode("Delete"));
-      li.appendChild(document.createTextNode(" "));
-      li.appendChild(deleteButton);
+          var statusButton = document.createElement("button");
+          statusButton.onclick = function() {
+            changeStatus(index);
+          };
+          statusButton.appendChild(document.createTextNode(item.status));
+          li.appendChild(document.createTextNode(" - "));
+          li.appendChild(statusButton);
 
-      list.appendChild(li);
-    });
-  }
+          var deleteButton = document.createElement("button");
+          deleteButton.onclick = function() {
+            removeItem(index);
+          };
+          deleteButton.appendChild(document.createTextNode("Delete"));
+          li.appendChild(document.createTextNode(" "));
+          li.appendChild(deleteButton);
+
+          list.appendChild(li);
+        });
+      }
 </script>
+</section>
 </body>
 </html>

@@ -91,6 +91,16 @@ public class MapViewController {
         dummyFoodItems.add(new FoodItem("Shrimp Scampi", 6462));
         dummyFoodItems.add(new FoodItem("Lobster Roll", 8623));
         dummyFoodItems.add(new FoodItem("BBQ Ribs", 7321));
+        dummyFoodItems.add(new FoodItem("Chicken Parmesan", 5924));
+        dummyFoodItems.add(new FoodItem("Mango Curry", 3456));
+        dummyFoodItems.add(new FoodItem("Beef Tacos", 4821));
+        dummyFoodItems.add(new FoodItem("Vegetable Lasagna", 6234));
+        dummyFoodItems.add(new FoodItem("Greek Salad", 3210));
+        dummyFoodItems.add(new FoodItem("Teriyaki Salmon", 4598));
+        dummyFoodItems.add(new FoodItem("Cheeseburger Sliders", 2945));
+        dummyFoodItems.add(new FoodItem("Chicken Alfredo", 5421));
+        dummyFoodItems.add(new FoodItem("Shrimp Fried Rice", 4321));
+        dummyFoodItems.add(new FoodItem("Philly Cheesesteak", 3865));
 
         // add attributes to the model
         model.addAttribute("mapusers", userList);
@@ -107,11 +117,6 @@ public class MapViewController {
      *
      * @return The name of the view to display.
      */
-    @PostMapping("/login")
-    public String goback() {
-        return "redirect:/login";
-    }
-
     @PostMapping("/public-profile")
     public String publicprofile() {
         return "redirect:/public-profile";
