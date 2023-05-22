@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Analyse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+
+
+<style>
+    #bg-colour {
+        background-color: lightblue;
+    }
+
+    #food-item {
+        background-color: white;
+        border: 1px solid black;
+        margin: 20px;
+        padding: 20px
+    }
+
+    #h1-text {
+        font-size: 20px;
+    }
+
+</style>
+
+<section id="bg-colour">
+<body>
+<!--<div th:replace="~{index-page :: navbar}"></div>-->
+
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Waste Saver</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/viewmap">View Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link activate" href="/viewlist">View List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link activate" href="/analyse">Analyse</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <a class="nav-link" href="/login">Login</a>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+<div class="s-1">
+    <div class="point-list">
+        <script type="text/javascript">
+            var food1 = 48;
+        </script>
+        <ol>
+            <li id="food-item">
+                <a class="food-link" id="h1-text" href="#">Bread</a>
+                <table class="food-description" style="width:80%">
+                    <tr>
+                        <td>Expired date: 18/4/23</td>
+                        <td>Food Consumption (%): 48</td>
+                        <td>Points given: 10</td>
+                    </tr>
+                    <tr>
+                        <td>Days left to expire: 2 days</td>
+                    </tr>
+                </table>
+            </li>
+            <li id="food-item">
+                <a class="food-link" id="h1-text" href="#">Milk</a>
+                <table class="food-description" style="width:80%">
+                    <tr>
+                        <td>Expired date: 20/4/23</td>
+                        <td>Food Consumption (%): 62</td>
+                        <td>Points given: 20</td>
+                    </tr>
+                    <tr>
+                        <td>Days left to expire: 4 days</td>
+                    </tr>
+                </table>
+            </li>
+            <li id="food-item">
+                <a class="food-link" id="h1-text" href="#">Banana</a>
+                <table class="food-description" style="width:80%">
+                    <tr>
+                        <td>Expired date: 14/4/23</td>
+                        <td>Food Consumption (%): 20</td>
+                        <td>Points given: 5</td>
+                    </tr>
+                    <tr>
+                        <td>Days left to expire: 0 days</td>
+                    </tr>
+                </table>
+            </li>
+        </ol>
+    </div>
+    <div>
+        <table style="width: 80%">
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <table style="width: 80%">
+                        <tr>
+                            <td>
+                                <button type="button" onclick="getPoints()">Calculate</button>
+                            </td>
+                            <td></td>
+                            <td>
+                                <p id="demo"></p>
+                                <script>
+                                       var point1 = 10;
+                                       var point2 = 20;
+                                       var point3 = 5;
+                                       var totalPoints = point1 + point2 + point3;
+                                       function getPoints() {
+                                            document.getElementById("demo").innerHTML = totalPoints + " points";
+                                            document.getElementById("demo").style.fontWeight = "bold";
+                                            document.getElementById("demo").style.fontSize = "30px";
+                                        }
+                                </script>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</section>
+</html>
