@@ -28,6 +28,10 @@ public class AnalyseCalc {
         var sub = second_date.getTime() - first_date.getTime(); // If output, measured in milliseconds
         //long totalDays = Math.divideExact(sub, 86400000);
         long totalDays = sub / 86400000; // Convert from milliseconds to days
+
+        if (totalDays <= 0) {
+            totalDays = 0;
+        }
         return totalDays;
     }
 
