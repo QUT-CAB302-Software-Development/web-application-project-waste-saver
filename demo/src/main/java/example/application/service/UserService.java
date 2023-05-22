@@ -14,7 +14,6 @@ import java.util.Optional;
 @Service
 public class UserService {
     @Autowired
-
     UserRepository repository;
     public List<UserEntity> getAllUser()
     {
@@ -74,5 +73,17 @@ public class UserService {
         } else {
             throw new RecordNotFoundException("No user record exist for given id");
         }
+    }
+
+    public UserEntity getUserByUsername(String username) throws RecordNotFoundException {
+        Iterable<UserEntity> users = repository.findAll();
+
+        for (UserEntity u : users) {
+            if (u.getUsername().equals(username)) {
+                return u;
+            }
+        }
+
+        throw new RecordNotFoundException("No user record exists for given username");
     }
 }

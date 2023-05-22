@@ -199,10 +199,10 @@ public class UserStats {
         return true;
     }
 
-    public String achievedTitle(){
+    public static String achievedTitle(int points){
         String title = "Untitled";
         for (Ranks rank : Ranks.values()){
-            if (rank.achieved(saverPoints)){
+            if (rank.achieved(points)){
                 title = rank.getRankTitle();
             }
             else {
@@ -213,11 +213,11 @@ public class UserStats {
         return title;
     }
 
-    public String pointsTillNextRank(){
+    public static String pointsTillNextRank(int points){
         String str = "All Ranks Achieved";
         for (Ranks rank : Ranks.values()){
-            if (!rank.achieved(saverPoints)){
-                str = Integer.toString(rank.getPointsScore() - saverPoints);
+            if (!rank.achieved(points)){
+                str = Integer.toString(rank.getPointsScore() - points);
                 break;
             }
         }

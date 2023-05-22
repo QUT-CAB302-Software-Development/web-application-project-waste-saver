@@ -28,6 +28,12 @@ public class UserEntity {
 	@Column(name="longitude", precision=9, scale=6)
 	private Double longitude;
 
+	@Column(name="user_name")
+	private String username;
+
+	@Column(name="saver_points")
+	private int saverPoints;
+
 	public Long getId() {
 		return id;
 	}
@@ -85,11 +91,27 @@ public class UserEntity {
 		this.longitude = longitude;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public int getSaverPoints() {
+		return saverPoints;
+	}
+
+	public void setSaverPoints(int saverPoints) {
+		this.saverPoints = saverPoints;
+	}
 
 	@Override
 	public String toString() {
 		return "UserEntity [id=" + id + ", firstName=" + firstName +
 				", lastName=" + lastName + ", email=" + email   +
-				", latitude=" + latitude + ", longitude=" + longitude + "]";
+				", latitude=" + latitude + ", longitude=" + longitude +
+				", username-" + username + "saverPoints=" + saverPoints + "]";
 	}
 }
