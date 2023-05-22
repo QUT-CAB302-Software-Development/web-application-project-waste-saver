@@ -64,7 +64,7 @@ public class UserService {
                 newEntity.setEmail(entity.getEmail());
                 newEntity.setFirstName(entity.getFirstName());
                 newEntity.setLastName(entity.getLastName());
-                newEntity.setPass(entity.getPass());
+                newEntity.setPassword(entity.getPassword());
 
                 newEntity = repository.save(newEntity);
 

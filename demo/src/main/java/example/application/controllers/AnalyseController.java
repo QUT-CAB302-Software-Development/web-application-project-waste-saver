@@ -2,7 +2,7 @@ package example.application.controllers;
 
 import example.application.model.UserEntity;
 import example.data.AnalyseCalc;
-import example.data.ProfileLogic;
+//import example.data.ProfileLogic;
 import example.data.StaticUserDAO;
 import example.data.User;
 import org.springframework.stereotype.Controller;
