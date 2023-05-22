@@ -62,7 +62,11 @@
 
 <body>
 
+<div th:replace="~{index-page :: navbar}"/>
+
 <div class="p-5" id="bg-colour">
+
+
 
     <div class="container">
 
@@ -163,8 +167,8 @@
                     <tr th:each="review : ${reviews}">
                         <td>
                             <hr>
-                            <h5 th:text="${review.authorID}"></h5>
-                            <p th:text="${review.rating}"></p>
+                            <h5 th:text="${review.getAuthorUsername()}"></h5>
+                            <p th:text="${review.getRatingString()}"></p>
                             <p th:text="${review.message}"></p>
                         </td>
                     </tr>

@@ -1,14 +1,35 @@
 package example.data;
 
+import example.application.exception.RecordNotFoundException;
+import example.application.model.ReviewEntity;
+import example.application.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class Review {
 
     private int rating;
-    private String user;
+    private int authorID;
+    private int to_userID;
+    private String authorUsername;
     private String message;
 
-    public Review(int rating, String user, String message){
+    public List<Review> convertToUsable(List<ReviewEntity> entities){
+        List<Review> usableReviews = new LinkedList<>();
+
+        for(ReviewEntity e : entities){
+            usableReviews.add(new Review(e.getRating(), e.getAuthorID(), e.getTo_userID(), e.getMessage()));
+        }
+
+        return usableReviews;
+    }
+
+    public Review(int rating, int authorID, int to_userID, String message){
         this.rating = rating;
-        this.user = user;
+        this.authorID = authorID;
+        this.to_userID = to_userID;
         this.message = message;
     }
 
@@ -28,12 +49,21 @@ public class Review {
         }
     }
 
-    public String getUser() {
-        return user;
+    public int getAuthorID() {
+        return authorID;
     }
 
-    public boolean setUser(String user) {
-        this.user = user;
+
+    public void setAuthorUsername(String authorUsername) {
+        this.authorUsername = authorUsername;
+    }
+
+    public String getAuthorUsername(){
+        return authorUsername;
+    }
+
+    public boolean setUser(int authorID) {
+        this.authorID = authorID;
 
         return true;
     }

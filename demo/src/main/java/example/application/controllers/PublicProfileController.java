@@ -5,9 +5,7 @@ import example.application.model.ReviewEntity;
 import example.application.model.UserEntity;
 import example.application.service.ReviewService;
 import example.application.service.UserService;
-import example.data.Ranks;
-import example.data.User;
-import example.data.UserStats;
+import example.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +51,18 @@ public class PublicProfileController {
         }
 
         int points = user.getSaverPoints();
-        List<ReviewEntity> reviews = rservice.getAllReviewTo(user.getId());
+        List<ReviewEntity> entities = rservice.getAllReviewTo(user.getId());
+        Review dummy = new Review(0, 0, 0, "0");
+        List<Review> reviews = dummy.convertToUsable(entities);
+
+        for(Review r : reviews){
+            try{
+                r.setAuthorUsername(uservice.getUserById(Integer.toUnsignedLong(r.getAuthorID())).getUsername());
+            } catch (RecordNotFoundException x){
+                System.out.println(x.getMessage());
+            }
+        }
+
 
         model.addAttribute("reviews", reviews);
         model.addAttribute("ranks", Ranks.values());

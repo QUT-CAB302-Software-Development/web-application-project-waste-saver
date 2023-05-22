@@ -2,6 +2,7 @@ package example.application.controllers;
 
 import example.application.exception.RecordNotFoundException;
 import example.application.model.UserEntity;
+import example.application.service.ReviewService;
 import example.application.service.UserService;
 import example.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,7 @@ public class LeaderboardController {
 
     @Autowired
     UserService uservice;
-    private User logged;
-    private User user;
+
     private LeaderboardLogic logic = new LeaderboardLogic();
 
 //    /**

@@ -68,8 +68,8 @@ public class LeaderboardLogic {
         s7.setJoinDate(LocalDate.of(1901, 11, 8));
         u7.setStatistics(s7);
 
-        s2.addReview(new Review(5, "bestuser", "this guy is pretty good"));
-        s2.addReview(new Review(1, "baduser", "this guy is pretty bad"));
+//        s2.addReview(new Review(5, "bestuser", "this guy is pretty good"));
+//        s2.addReview(new Review(1, "baduser", "this guy is pretty bad"));
 
 
         userDAO.addUser(u1);

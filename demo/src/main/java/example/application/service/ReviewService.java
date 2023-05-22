@@ -2,15 +2,16 @@ package example.application.service;
 
 import example.application.exception.RecordNotFoundException;
 import example.application.model.ReviewEntity;
-import example.application.model.UserEntity;
 import example.application.model.repository.ReviewRepository;
-import example.data.Review;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ReviewService {
     @Autowired
 
@@ -79,11 +80,11 @@ public class ReviewService {
     public List<ReviewEntity> getAllReviewTo(Long toUserID){
         List<ReviewEntity> allReviews = (List<ReviewEntity>) repository.findAll();
 
-        for(ReviewEntity r : allReviews){
-            if (r.getTo_userID() == toUserID){
-
-            } else {
-                allReviews.remove(r);
+        Iterator<ReviewEntity> iterator = allReviews.iterator();
+        while (iterator.hasNext()) {
+            ReviewEntity review = iterator.next();
+            if (review.getTo_userID() != toUserID) {
+                iterator.remove();
             }
         }
 

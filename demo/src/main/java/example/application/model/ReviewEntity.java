@@ -1,6 +1,9 @@
 package example.application.model;
 
+import example.application.exception.RecordNotFoundException;
+import example.application.service.UserService;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name="REVIEWS")
@@ -35,4 +38,5 @@ public class ReviewEntity {
                 ", to_user=" + to_userID + ", rating=" + rating   +
                 ", message=" + message + "]";
     }
+
 }
