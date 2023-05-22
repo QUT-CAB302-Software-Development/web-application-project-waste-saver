@@ -1,10 +1,12 @@
 package example.application.controllers;
 
-import example.data.StaticUserDAO;
-import example.data.User;
+import example.data.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.time.LocalDate;
 
 @Controller
 public class PublicProfileController {
@@ -16,8 +18,6 @@ public class PublicProfileController {
     private User logged;
     private User user;
 
-    private boolean firstTime = false;
-
     /**
      * Displays the Public Profile page.
      *
@@ -26,12 +26,6 @@ public class PublicProfileController {
      */
     @GetMapping("/public-profile")
     public String showPublicProfileForm(Model model) {
-
-        if (firstTime){
-            User u = new User("Jayden", "Hobbs", "password", "jayden@gmail", new double []{-27.4785, 153.0284});
-            userDAO.addUser(u);
-            firstTime=false;
-        }
 
         logged = userDAO.getUser("jayden@gmail");
 
@@ -43,6 +37,23 @@ public class PublicProfileController {
         model.addAttribute("logged", logged);
         model.addAttribute("user", user);
         return "public-profile";
+    }
+
+    @GetMapping("/public-profile/{user_email}")
+    public String showUserProfileForm(Model model, @PathVariable("user_email") String user_email) {
+
+
+        logged = userDAO.getUser(user_email);
+        user = userDAO.getUser(user_email);
+
+        System.out.println(user_email);
+        System.out.println("SUCCESS");
+
+        model.addAttribute("logged", logged);
+        model.addAttribute("user", user);
+        model.addAttribute("ranks", Ranks.values());
+        return "public-profile";
+
     }
 
 

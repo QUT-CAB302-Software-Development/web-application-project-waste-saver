@@ -38,20 +38,25 @@ public class DataBaseController {
 
     @RequestMapping(path = {"/edit", "/edit/{id}"})
     public String editUserId(Model model, @PathVariable("id") Optional<Long> id)
-            throws RecordNotFoundException
+            //throws RecordNotFoundException
     {
+        try{
+            if (id.isPresent()) {
+                    UserEntity entity = service.getUserById(id.get());
+                   model.addAttribute("users", entity);
+            } else {
+                model.addAttribute("users", new UserEntity());
+            }
 
-        System.out.println("editUserById" + id);
-        if (id.isPresent()) {
-            UserEntity entity = service.getUserById(id.get());
-            model.addAttribute("users", entity);
-        } else {
-            model.addAttribute("users", new UserEntity());
+        }
+        catch (RecordNotFoundException x){
+            System.err.println(x.getMessage());
         }
 
 
         return "Login_user_database";
     }
+
 
     @RequestMapping(path = "/delete/{id}")
     public String deleteUserById(Model model, @PathVariable("id") Long id)
@@ -71,6 +76,6 @@ public class DataBaseController {
 
         service.createOrUpdateUser(users);
 
-        return "redirect:/alluser";
+        return "redirect:/login";
     }
 }

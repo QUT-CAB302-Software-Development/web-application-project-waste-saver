@@ -1,12 +1,21 @@
 package example.application.controllers;
 
+import example.application.model.UserEntity;
+import example.application.service.UserService;
 import example.data.StaticUserDAO;
 import example.data.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import example.application.model.UserEntity;
+import example.application.model.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import example.application.exception.RecordNotFoundException;
+
 
 import java.util.List;
 import java.util.ArrayList;
@@ -33,76 +42,72 @@ public class MapViewController {
         }
 
     }
-    private final StaticUserDAO userDAO = new StaticUserDAO();
+    // Creating fake Database and Radius
     public String dummyRadius = "80";
-
     public String getUserRadius(User currentUser) {
         return dummyRadius;
     }
 
-    public double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        double radiusOfEarth = 6371; // Radius of Earth in kilometers
-
-        double sinLat1 = Math.sin(Math.toRadians(lat1));
-        double sinLat2 = Math.sin(Math.toRadians(lat2));
-        double cosLat1 = Math.cos(Math.toRadians(lat1));
-        double cosLat2 = Math.cos(Math.toRadians(lat2));
-        double cosLonDiff = Math.cos(Math.toRadians(lon2 - lon1));
-
-        return Math.acos(sinLat1 * sinLat2 + cosLat1 * cosLat2 * cosLonDiff) * radiusOfEarth * 1000;
-    }
-
-    public Boolean withinDistance(double [] chosenUserCoords, double [] comparedUserCoords){
-        return calculateDistance(chosenUserCoords[0], chosenUserCoords[1], comparedUserCoords[0], comparedUserCoords[1])
-                <= Integer.parseInt(getUserRadius(new User("", "", "","",new double[]{})));
-    }
+    //Connect to singleton Database
+    @Autowired
+    private UserService userService;
 
     public String expirationDateColor(int time){
         return time >= 1000 ? "Red" : time >= 500 ? "Orange" : time >= 10 ? "Red" : "Black";
     }
 
-    /**
-     * Displays the map page.
-     *
-     * @param model The model that defines the attributes to be displayed.
-     * @return The name of the view to display.
-     */
+    //Controller for handling backside logic.
     @GetMapping("/viewmap")
-    public String viewmap(@RequestParam(name = "radius", defaultValue = "80") String radius, Model model) {
-        /*
-         *  Creates a list of example Users with coordinates, in the real implementation, should fetch from the database.
-         */
-        List<User> dummyUsers = new ArrayList<>();
-        dummyUsers.add(new User("Adam", "Le", "123", "adam@gmail.com", new double[]{-27.4785, 153.0284}));
-        dummyUsers.add(new User("Jayden", "Daquan", "321", "jayden@gmail.com", new double[]{-27.4783, 153.0290}));
-        dummyUsers.add(new User("Jason", "Mike", "213", "jason@gmail.com", new double[]{-27.4788, 153.0279}));
+    public String viewmap(@ModelAttribute("currentuser") UserEntity currentuser, Model model) {
 
+        //If there is no logged-in user, throw an exception.
+        if(currentuser.getFirstName() == null) {
+            throw new IllegalArgumentException("Must be logged in");
+        }
+
+
+        // Retrieve all users from the database.
+        List<UserEntity> userList = userService.getAllUser();
+
+        // Create fake database of food.
         List<FoodItem> dummyFoodItems = new ArrayList<>();
         dummyFoodItems.add(new FoodItem("Tomahawk Steak", 10052));
         dummyFoodItems.add(new FoodItem("Halal Khebabs", 4922));
         dummyFoodItems.add(new FoodItem("Chicken and Rice", 40));
-
-
-        for (User user : dummyUsers) {
-            if (!(withinDistance(dummyUsers.get(0).getCoordinates(), user.getCoordinates()))) {
-                dummyUsers.remove(user);
-            }
-        }
+        dummyFoodItems.add(new FoodItem("Spaghetti Bolognese", 7314));
+        dummyFoodItems.add(new FoodItem("Taco Salad", 5500));
+        dummyFoodItems.add(new FoodItem("Vegetable Stir Fry", 2481));
+        dummyFoodItems.add(new FoodItem("Fish and Chips", 1123));
+        dummyFoodItems.add(new FoodItem("Pepperoni Pizza", 9136));
+        dummyFoodItems.add(new FoodItem("Chicken Tikka Masala", 6745));
+        dummyFoodItems.add(new FoodItem("Beef Burger", 8321));
+        dummyFoodItems.add(new FoodItem("Vegan Pad Thai", 4275));
+        dummyFoodItems.add(new FoodItem("Seafood Paella", 5621));
+        dummyFoodItems.add(new FoodItem("Falafel Wrap", 3692));
+        dummyFoodItems.add(new FoodItem("Sushi Platter", 9182));
+        dummyFoodItems.add(new FoodItem("Beef Stroganoff", 7786));
+        dummyFoodItems.add(new FoodItem("Gourmet Grilled Cheese", 2843));
+        dummyFoodItems.add(new FoodItem("Pesto Pasta", 5121));
+        dummyFoodItems.add(new FoodItem("Shrimp Scampi", 6462));
+        dummyFoodItems.add(new FoodItem("Lobster Roll", 8623));
+        dummyFoodItems.add(new FoodItem("BBQ Ribs", 7321));
+        dummyFoodItems.add(new FoodItem("Chicken Parmesan", 5924));
+        dummyFoodItems.add(new FoodItem("Mango Curry", 3456));
+        dummyFoodItems.add(new FoodItem("Beef Tacos", 4821));
+        dummyFoodItems.add(new FoodItem("Vegetable Lasagna", 6234));
+        dummyFoodItems.add(new FoodItem("Greek Salad", 3210));
+        dummyFoodItems.add(new FoodItem("Teriyaki Salmon", 4598));
+        dummyFoodItems.add(new FoodItem("Cheeseburger Sliders", 2945));
+        dummyFoodItems.add(new FoodItem("Chicken Alfredo", 5421));
+        dummyFoodItems.add(new FoodItem("Shrimp Fried Rice", 4321));
+        dummyFoodItems.add(new FoodItem("Philly Cheesesteak", 3865));
 
         // add attributes to the model
-        model.addAttribute("mapusers", dummyUsers);
-        model.addAttribute("chosenuser", dummyUsers.get(0));
-        model.addAttribute("users", userDAO.listUsers());
-        model.addAttribute("radius", radius);
+        model.addAttribute("mapusers", userList);
+        model.addAttribute("chosenuser", currentuser);
+        model.addAttribute("radius", 80);
         model.addAttribute("dummyfood", dummyFoodItems);
 
-        dummyRadius = radius;
-        // Add a marker for each user to the map
-        for (User user : dummyUsers) {
-            double[] coordinates = user.getCoordinates();
-            model.addAttribute("mapScript", String.format("%sL.marker([%f, %f]).addTo(map);\n",
-                    model.getAttribute("mapScript"), coordinates[0], coordinates[1]));
-        }
 
         return "map-view"; //return the name of the view to display
     }
@@ -112,9 +117,9 @@ public class MapViewController {
      *
      * @return The name of the view to display.
      */
-    @PostMapping("/login")
-    public String goback() {
-        return "redirect:/login";
+    @PostMapping("/public-profile")
+    public String publicprofile() {
+        return "redirect:/public-profile";
     }
 
 }

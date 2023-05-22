@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title>User Preferences</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -37,16 +37,14 @@
         border-radius: 50%;
     }
 
-    #editPreferences {
+    .scrollable {
         height: calc(100vh - 6rem);
         padding: 3rem;
         overflow-y: scroll;
     }
 
-    #other {
-    }
 
-    #editPreferences::-webkit-scrollbar {
+    .scrollable::-webkit-scrollbar {
         width: 0px;
         background: transparent;
     }
@@ -68,7 +66,7 @@
     <div th:replace="~{index-page :: navbar}"/>
     -->
 
-    <form method="post" th:action="@{/profile}">
+    <form method="post" th:action="@{/preferences}">
 
         <div class="container">
 
@@ -79,12 +77,13 @@
                 <div class="col-sm-3 border-end" id="profileDetails">
                     <img src="../img/default-profile.jpg" alt="default profile pic" id="profile-img">
                     <h4 th:text="|${logged.firstName} ${logged.lastName}|">Profile name</h4>
-                    <p>Second line</p>
+                    <h6 th:text="'Member since ' + ${logged.statistics.getJoinString()}">Member since</h6>
+                    <p><i>Personal Account</i></p>
                 </div>
 
 
                 <!-- Edit preferences column -->
-                <div class="col-sm-6" id="editPreferences">
+                <div class="col-sm-6 scrollable" id="editPreferences">
                     <h3 class="mt-3">Edit Preferences</h3>
                     <hr>
                     <h5>Personal Details</h5>
@@ -119,7 +118,7 @@
 
                         <!-- Receive donation notifications -->
                         <div class="col-sm-12">
-                            <input class="mt-2" type="checkbox" id="donationNotifications">
+                            <input class="mt-2" type="checkbox" id="donationNotifications" th:checked="${logged.preferences.donationNotifications}"  th:field="*{user.preferences.donationNotifications}">
                             <label class="form-check-label" for="donationNotifications">
                                 Receive notifications for available donations in your local area?
                             </label>
@@ -136,7 +135,7 @@
 
                         <!-- Receive expiry notifications -->
                         <div class="col-sm-12">
-                            <input type="checkbox" id="expiryNotifications">
+                            <input type="checkbox" id="expiryNotifications" th:checked="${logged.preferences.expiryNotifications}" th:field="*{user.preferences.expiryNotifications}">
                             <label class="form-check-label mb-2" for="expiryNotifications">
                                 Receive notifications when your food may be close to expiry?
                             </label>

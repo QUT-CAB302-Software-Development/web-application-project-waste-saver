@@ -1,7 +1,7 @@
 package example.data;
 
 
-public class ProfileLogic {
+public class PreferencesLogic {
     /**
      * The singleton instance of the database connection. This is used to access the
      * database of users.
@@ -31,15 +31,18 @@ public class ProfileLogic {
         userDAO.deleteUser(user.getEmail());
     }
 
-    public void processPreferences(User user, boolean donoAlert, int radius, boolean expAlert) {
+
+
+    public void processPreferences(User user, UserPref newPrefs) {
         UserPref prefs = user.getPreferences();
 
-        prefs.setDonationNotifications(donoAlert);
-        prefs.setDonationRange(radius);
-        prefs.setExpiryNotifications(expAlert);
+        prefs.setDonationNotifications(newPrefs.isDonationNotifications());
+        prefs.setDonationRange(newPrefs.getDonationRadius());
+        prefs.setExpiryNotifications(newPrefs.isExpiryNotifications());
 
         userDAO.updateUser(user);
     }
+
 
     public void resetPreferences(User user) {
         user.setPreferences(new UserPref());
