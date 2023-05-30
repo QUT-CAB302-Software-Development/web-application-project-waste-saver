@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Controller for the main page, displayed after the user has logged in.
@@ -26,9 +27,6 @@ public class MainViewController {
      */
     @GetMapping("/main")
     public String main(Model model) {
-        User user = (User) model.getAttribute("user");
-        model.addAttribute("user", user);
-        model.addAttribute("users", userDAO.listUsers());
         return "main-view";
     }
 
@@ -40,5 +38,10 @@ public class MainViewController {
     @PostMapping("/logout")
     public String logout() {
         return "redirect:/login";
+    }
+
+    @PostMapping("/viewmap")
+    public String viewmap() {
+        return "redirect:/viewmap";
     }
 }

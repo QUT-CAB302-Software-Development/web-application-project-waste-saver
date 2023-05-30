@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script type="text/javascript" src="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/dist/index.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/styles/minimal.css">
+    <style>
+        #map {
+            height: 70vh;
+            width: 65%;
+            border-color: black;
+            border-radius: 5%;
+            left:25%;
+            margin-top: 2.5%;
+
+            box-shadow: 10px 10px 5px grey;
+        }
+
+        body {
+            background-color: white;
+            background-image: url(../img/MapBG.png);
+            background-size: cover;
+        }
+
+        .good {
+            color: green; /* Set text color to white */
+        }
+
+        .ok {
+            color: yellow; /* Set text color to white */
+        }
+
+        .bad {
+            color: red; /* Set text color to white */
+        }
+
+      /* Style the links in the menu */
+      .sidebar {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        top: 7%;
+        left: 0;
+        background-color: #f1f1f1;
+        opacity: 60%;
+        padding-top: 20px;
+        text-decoration: none;
+        padding-top: 1%;
+        padding-left: 0.2%;
+        color: black;
+        display: block;
+      }
+
+
+      /* Change the link color on hover */
+      .sidebar a:hover {
+        color: #f1f1f1;
+      }
+
+      .map-container {
+      position: relative;
+      }
+
+    .autocomplete-panel {
+      position: relative;
+      width: 350px;
+      z-index: 1000;
+    }
+
+    .autocomplete-container {
+      position: relative;
+    }
+
+    .autocomplete-container input.geoapify-autocomplete-input {
+      margin-bottom:0;
+      height:36px;
+      width: 53%;
+      border: 1px solid black;
+    }
+
+    .geoapify-close-button.visible{
+        display: none;
+    }
+
+
+    </style>
+
+
+    <title>Map</title>
+
+</head>
+
+<div th:replace="~{index-page :: navbar}" />
+
+<body>
+<div id="map"></div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+      // Retrieve the user selected on the previous page
+      var chosenuser = /*[[${chosenuser}]]*/;
+
+     // Set the coordinates of the current location panned on the map
+      var pannedUser = [chosenuser.latitude, chosenuser.longitude]
+
+      // Radius switch value
+      var radiusIsOn = true;
+
+      // API key
+      const myapiKey = "bec0ab3699aa4965be10192c6795ce92";
+
+      // The Leaflet map Object
+      const map = L.map('map').setView([chosenuser.latitude, chosenuser.longitude], 19);
+
+      // Retina displays require different mat tiles quality
+      const isRetina = L.Browser.retina;
+
+      const baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=" + myapiKey;
+      const retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey=" + myapiKey;
+
+      // Add map tiles layer. Set 20 as the maximal zoom and provide map data attribution.
+      L.tileLayer(isRetina ? retinaUrl : baseUrl, {
+        attribution: 'Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | <a href="https://openmaptiles.org/" rel="nofollow" target="_blank">(c) OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" rel="nofollow" target="_blank">(c) OpenStreetMap</a> contributors',
+        maxZoom: 20,
+        id: 'osm-bright'
+      }).addTo(map);
+
+      // add a zoom control to bottom-right corner
+      L.control.zoom({
+        position: 'bottomright'
+      }).addTo(map);
+
+    // Retrieve data on all users and their donated food from the server
+    var mapusers = [[${ mapusers }]];
+    var dummyfood = [[${ dummyfood }]];
+
+    // Create a blue circle representing the user's selected search radius
+    var boundry = L.circle([-27.4785, 153.0284], {
+        color: '',
+        fillColor: 'blue',
+        fillOpacity: 0.2,
+        radius: 80
+    }).addTo(map);
+
+    // Create a layer group to hold all markers
+    var markerGroup = L.layerGroup();
+
+    // Create an array to hold all markers
+    var markers = [];
+
+    // Iterate over each user's donated food to create a marker for each
+    for (var i = 0; i < mapusers.length; i++) {
+        var user = mapusers[i];
+        var food = dummyfood[i];
+        var expiration = food.expirationDate; // Save the original expiration date
+
+        // Determine the expiration time unit (weeks, days, hours, minutes)
+        var timeunit = expiration / 10080 > 1 ? "Weeks" : expiration / 1440 > 1 ? "Days" : expiration / 60 > 1 ? "Hours" : "Minutes";
+
+        // Determine the expiration time value
+        var unit = expiration / 10080 > 1 ? expiration / 10080 : expiration / 1440 > 1 ? expiration / 1440
+         : expiration / 60 > 1 ? expiration / 60 : expiration;
+
+        // Determine the CSS class to apply to the marker based on expiration time unit
+        var classcolor = timeunit == 'Weeks' ? "good" : timeunit == 'Days' ? "good" : timeunit == "Hours" ? 'okay' :
+            timeunit == "Minutes" ? 'bad' : 'bad';
+
+        // Create the marker and bind a popup to it
+        var marker = L.marker([user.latitude, user.longitude])
+            .bindPopup("<b>" + user.firstName + " " + user.lastName + "</b><b>" + " is donating: " + "</b><br>" + food.name
+                + "<br> Expiring in " + Math.floor(unit) + "</b> " + timeunit + "<br><br>"
+        + "<form method='post' action='/public-profile'><button type='submit' class='btn btn-success'>View Profile</button></form>", {
+            class: classcolor })
+
+        // Add the marker to the array of markers
+        markers.push(marker);
+    }
+
+    // Decrement the expiration value and update the marker popup content every second
+    setInterval(function() {
+        for (var i = 0; i < markers.length; i++) {
+            var marker = markers[i];
+            var popupContent = marker.getPopup().getContent();
+            var expiration = parseInt(popupContent.match(/Expiring in (\d+)/)[1]);
+            var timeunit = popupContent.match(/\b(?:Weeks|Days|Hours|Minutes)\b/)[0];
+            if(timeunit == "Minutes") {
+                if (expiration > 0) {
+                    var newExpiration = expiration - 1;
+                    var newPopupContent = popupContent.replace(/Expiring in (\d+)/, "Expiring in " + newExpiration);
+                    marker.getPopup().setContent(newPopupContent);
+                }
+                else {
+                map.removeLayer(marker);
+                }
+            }
+            else {
+                var newPopupContent = popupContent.replace(/Expiring in (\d+)/, "Expiring in " + newExpiration);
+            }
+        }
+    }, 1000);
+
+    filterMarkers(); // Initial filter of markers based on boundary
+
+    function updateBoundary() {
+        var radius = document.getElementById("radiusInput").value;
+        boundry.setRadius(radius);
+        filterMarkers();
+    }
+
+    function filterMarkers() {
+        var radius = boundry.getRadius();
+        var center = boundry.getLatLng();
+        if(document.getElementById("maximumPeopleInput") != null) {
+            var max = document.getElementById("maximumPeopleInput").value }
+            else {
+                var max = 100; }
+        markerGroup.clearLayers(); // Clear existing markers from layer group
+        for (var i = 0; i < markers.length; i++) {
+            if(i == max) { break; }
+            var marker = markers[i];
+            var distance = marker.getLatLng().distanceTo(center);
+            if(radiusIsOn) {
+                if (distance <= radius) {
+                    markerGroup.addLayer(marker); // Add marker to layer group
+                }
+            } else {
+                markerGroup.addLayer(marker);
+                }
+        }
+
+        markerGroup.addTo(map); // Add filtered layer group to map
+    }
+
+function goNextPerson() {
+    var j = -1;
+    for (var i = 0; i < markers.length; i ++) {
+        if(markerGroup.hasLayer(markers[i]) && markers[i].getLatLng().equals(L.latLng(pannedUser[0], pannedUser[1]))) {
+            // check if marker is within radius of filterMarkers
+            var distance = markers[i].getLatLng().distanceTo(boundry.getLatLng());
+            if (distance <= boundry.getRadius()) {
+                j = i + 1;
+                break;
+            }
+        }
+    }
+    if(j != -1) {
+        // update pannedUser and pan to next marker within radius
+        pannedUser = [markers[j].getLatLng().lat, markers[j].getLatLng().lng];
+        map.panTo([markers[j].getLatLng().lat, markers[j].getLatLng().lng]);
+        console.log([markers[j].getLatLng().lat, markers[j].getLatLng().lng]);
+    }
+}
+
+function goPreviousPerson() {
+    var j = -1;
+    for (var i = 0; i < markers.length; i ++) {
+        if(markerGroup.hasLayer(markers[i]) && markers[i].getLatLng().equals(L.latLng(pannedUser[0], pannedUser[1]))) {
+            // check if marker is within radius of filterMarkers
+            var distance = markers[i].getLatLng().distanceTo(boundry.getLatLng());
+            if (distance <= boundry.getRadius()) {
+                j = i - 1;
+                break;
+            }
+        }
+    }
+    if(j != -1) {
+        // update pannedUser and pan to next marker within radius
+        pannedUser = [markers[j].getLatLng().lat, markers[j].getLatLng().lng];
+        map.panTo([markers[j].getLatLng().lat, markers[j].getLatLng().lng]);
+        console.log([markers[j].getLatLng().lat, markers[j].getLatLng().lng]);
+    }
+}
+
+
+/*]]>*/
+
+</script>
+
+<div class="sidebar">
+    <div class="map-container">
+        <div class="autocomplete-panel">
+            <div id="autocomplete" class="autocomplete-container"></div>
+        </div>
+    </div>
+    <form onsubmit="return false;">
+        <label for="radiusInput">Radius: </label>
+        <input id="radiusInput" type="number" onchange="updateBoundary()" value="80">
+    </form>
+    <form onsubmit="return false;">
+        <label for="maximumPeopleInput">Maximum people: </label>
+        <input id="maximumPeopleInput" type="number" onchange="updateBoundary()" value="50">
+    </form>
+    <form onsubmit="return false;">
+        <label for="Food Category">Food Category: </label>
+        <input id="Food Category" type="number" onchange="updateBoundary()" value="${food}">
+    </form>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="radiusSwitch" checked>
+        <label class="form-check-label" for="radiusSwitch">Toggle radius</label>
+    </div>
+    <button type="button" class="btn btn-success" onclick="goNextPerson()">Next Person</button>
+</div>
+<script>
+    // check the available autocomplete options on the https://www.npmjs.com/package/@geoapify/geocoder-autocomplete
+    const autocompleteInput = new autocomplete.GeocoderAutocomplete(
+        document.getElementById("autocomplete"),
+            myapiKey,
+            { /* Geocoder options */ });
+
+      autocompleteInput.on('select', (location) => {
+              map.panTo([location.properties.lat, location.properties.lon]);
+      });
+
+      // Check the value of radius switch and update
+      const switchInput = document.getElementById('radiusSwitch');
+      switchInput.addEventListener('change', function() {
+        if (this.checked) {
+          radiusIsOn = true;
+        } else {
+          radiusIsOn = false;
+        }
+  });
+</script>
+
+</body>
+
+</html>

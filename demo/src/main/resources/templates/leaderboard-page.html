@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+
+<style>
+    #bg-colour {
+        background-color: palegreen;
+    }
+
+    #mainSection {
+        height: calc(100vh - 6rem);
+        border-radius: 25px;
+        border: 2px solid green;
+        background-color: white;
+    }
+
+    #profileDetails {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: auto;
+    }
+
+    #profile-img {
+        height: 150px;
+        width: auto;
+        border-radius: 50%;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: green;
+        text-decoration:none;
+        cursor:pointer;
+    }
+
+    .scrollable {
+        height: calc(100vh - 6rem);
+        padding: 3rem;
+        overflow-y: scroll;
+    }
+
+    .scrollable::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+
+    * {
+        -ms-overflow-style: none !important;
+    }
+</style>
+
+<body>
+
+<div th:replace="~{index-page :: navbar}"/>
+
+<!-- Background Color -->
+<div class="p-5" id="bg-colour">
+
+    <!-- Row containing main section -->
+    <div class="row" id="mainSection">
+
+        <!-- Leaderboard view settings column -->
+        <div class="col-sm-2 border-end" id="settings">
+            <div id="profileDetails">
+                <img src="../img/default-profile.jpg" alt="default profile pic" id="profile-img">
+                <h4 th:text="|${logged.firstName} ${logged.lastName}|">Profile name</h4>
+                <p th:text="|Your rank: ${loggedPos}|">Your rank: </p>
+            </div>
+
+            <hr>
+            <h6>Sort by:</h6>
+            <ul>
+                <li><a href="http://localhost:8080/leaderboard/SaverPoints">Saver Points</a></li>
+                <li><a href="http://localhost:8080/leaderboard/Reviews">Reviews</a></li>
+            </ul>
+
+
+
+        </div>
+
+        <!-- All time leaderboard column -->
+        <div class="col-sm-5 border-end scrollable" id="allTime">
+            <h3>All Time</h3>
+
+            <p th:text="|Sorting by ${sortType}|">Second line</p>
+
+            <table class="table" th:with="mycounter = ${counter.get()}">
+                <thead>
+                    <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users2}">
+                    <td th:with="mycounter=${counter.getAndCount()}">
+                        <p th:text="${mycounter}">rank</p>
+                    </td>
+                    <td>
+                        <a th:href="@{http://localhost:8080/public-profile/{username}(username=${user.username})}">
+                            <h5 th:text="|${user.saverPoints}: ${user.username}|"></h5>
+                        </a>
+                        <p th:text="${user.getUsername()}"></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Past month leaderboard column -->
+        <div class="col-sm-5 border-end scrollable" id="pastMonth">
+            <h3>Past Month</h3>
+
+            <p>Not implemented</p>
+
+            <table class="table" th:with="mycounter = ${counter.clear()}">
+                <thead>
+                <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">User</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${allUsers}">
+                    <td th:with="mycounter=${counter.getAndCount()}">
+                        <p th:text="${mycounter}">rank</p>
+                    </td>
+                    <td>
+                        <a th:href="@{http://localhost:8080/public-profile/{username}(username=${user.username})}">
+                            <h5 th:text="|${user.saverPoints}: ${user.username}|"></h5>
+                        </a>
+                        <p th:text="${user.username}"></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

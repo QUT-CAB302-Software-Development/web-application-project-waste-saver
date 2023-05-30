@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Preferences</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+
+<style>
+    #bg-colour {
+        background-color: palegreen;
+    }
+
+    #mainSection {
+        height: calc(100vh - 6rem);
+        border-radius: 25px;
+        border: 2px solid green;
+        background-color: white;
+    }
+
+    #profileDetails {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: auto;
+    }
+
+    #profile-img {
+        height: 150px;
+        width: auto;
+        border-radius: 50%;
+    }
+
+    .scrollable {
+        height: calc(100vh - 6rem);
+        padding: 3rem;
+        overflow-y: scroll;
+    }
+
+
+    .scrollable::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+
+    #confirm-button {
+        display: flex;
+        justify-content: center;
+    }
+
+    * {
+        -ms-overflow-style: none !important;
+    }
+</style>
+
+<body>
+
+    <div class="p-5" id="bg-colour">
+
+    <div th:replace="~{index-page :: navbar}"/>
+
+
+    <form method="post" th:action="@{/preferences}">
+
+        <div class="container">
+
+            <!-- Row containing main section -->
+            <div class="row" id="mainSection">
+
+                <!-- Profile details column -->
+                <div class="col-sm-3 border-end" id="profileDetails">
+                    <img src="../img/default-profile.jpg" alt="default profile pic" id="profile-img">
+                    <h4 th:text="|${logged.firstName} ${logged.lastName}|">Profile name</h4>
+                    <h6 th:text="'Member since ' + ${logged.statistics.getJoinString()}">Member since</h6>
+                    <p><i>Personal Account</i></p>
+                </div>
+
+
+                <!-- Edit preferences column -->
+                <div class="col-sm-6 scrollable" id="editPreferences">
+                    <h3 class="mt-3">Edit Preferences</h3>
+                    <hr>
+                    <h5>Personal Details</h5>
+
+                    <div class="row">
+                        <!-- First name -->
+                        <div class="col-md-6">
+                            <label>First name</label>
+                            <input class="form-control" type="text" th:placeholder="${logged.firstName}" th:field="*{user.firstName}">
+                        </div>
+
+                        <!-- Last name -->
+                        <div class="col-md-6">
+                            <label>Last name</label>
+                            <input class="form-control" type="text" th:placeholder="${logged.lastName}" th:field="*{user.lastName}">
+                        </div>
+
+                        <!-- Address -->
+                        <div class="col-sm-12">
+                            <label class="mt-3">Address</label>
+                            <input class="form-control" type="text" placeholder="Address" value="">
+                        </div>
+
+                        <!-- Addy -->
+                        <div class="col-sm-12">
+                            <label>Address</label>
+                            <input class="form-control mb-3" type="text" placeholder="Address" value="">
+                        </div>
+
+                        <hr>
+                        <h5>Donations</h5>
+
+                        <!-- Receive donation notifications -->
+                        <div class="col-sm-12">
+                            <input class="mt-2" type="checkbox" id="donationNotifications" th:checked="${logged.preferences.donationNotifications}"  th:field="*{user.preferences.donationNotifications}">
+                            <label class="form-check-label" for="donationNotifications">
+                                Receive notifications for available donations in your local area?
+                            </label>
+                        </div>
+
+                        <!-- Donation range -->
+                        <div class="col-sm-12">
+                            <label class="form-label mt-2" for="donationNotifications">Range (km)</label>
+                            <input type="range" class="form-range mb-2" id="">
+                        </div>
+
+                        <hr>
+                        <h5>Food Inventory</h5>
+
+                        <!-- Receive expiry notifications -->
+                        <div class="col-sm-12">
+                            <input type="checkbox" id="expiryNotifications" th:checked="${logged.preferences.expiryNotifications}" th:field="*{user.preferences.expiryNotifications}">
+                            <label class="form-check-label mb-2" for="expiryNotifications">
+                                Receive notifications when your food may be close to expiry?
+                            </label>
+                        </div>
+
+                        <hr>
+
+                        <div class="col-sm-12" id="confirm-button">
+                            <button type="submit" name="save" value="Save" class="btn btn-success">Save Changes</button>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-3 border-start" id="other">column 3</div>
+
+            </div>
+        </div>
+    </form>
+
+
+    </div>
+</body>
+
+</html>
